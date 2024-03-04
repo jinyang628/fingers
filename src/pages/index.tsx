@@ -1,3 +1,4 @@
+import { sendUrl } from '@/api/sendUrl';
 import { Flex, Button, Text, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -8,9 +9,13 @@ export default function Home() {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = () => {
-    // API call logic here
-    console.log(inputValue);
+  const handleSubmit = async () => {
+    try {
+      const response: string = await sendUrl(inputValue);
+      console.log(response);
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   return (

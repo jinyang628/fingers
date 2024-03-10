@@ -4,11 +4,11 @@ import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function createEntry(url: string): Promise<CreateEntryResponse> {
+export async function create_entry(url: string): Promise<CreateEntryResponse> {
 
     try {
         const response = await axios.post(
-            `${API_URL}/api/createEntry`, 
+            `${API_URL}/api/create_entry`, 
             {
                 url
             },

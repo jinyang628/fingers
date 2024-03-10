@@ -1,4 +1,4 @@
-import { createEntry } from "@/api/createEntry";
+import { create_entry } from "@/api/createEntry";
 import { Flex, Button, Text, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from 'next/router';
@@ -15,7 +15,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     try {
-      const { data, status } = await createEntry(inputValue);
+      const { data, status } = await create_entry(inputValue);
       console.log(data)
       console.log(status)
       if ( status == 200 ) {

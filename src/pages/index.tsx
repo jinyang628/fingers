@@ -1,8 +1,8 @@
-import { create_entry } from "@/api/create_entry";
+import { _post } from "@/api/entries/_post";
 import { Flex, Button, Text, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from 'next/router';
-import { submit_api_key } from "@/api/submit_api_key";
+import { validate } from "@/api/api_keys/validate";
 
 export default function Home() {
 
@@ -19,9 +19,9 @@ export default function Home() {
     setUrlInputValue(e.target.value);
   };
 
-  const handleSubmitApiKey = async () => {
+  const handleValidateApiKeys = async () => {
     try {
-      const { status } = await submit_api_key(apiKeyInputValue);
+      const { status } = await validate(apiKeyInputValue);
       console.log(status)
       if ( status == 200 ) {
         console.log("API KEY RECEIVED SUCCESSFULLY");
@@ -35,9 +35,9 @@ export default function Home() {
     }
   };
 
-  const handleSubmitUrl = async () => {
+  const handlePostEntries = async () => {
     try {
-      const { data, status } = await create_entry(urlInputValue);
+      const { data, status } = await _post(urlInputValue);
       console.log(data)
       console.log(status)
       if ( status == 200 ) {
@@ -58,11 +58,11 @@ export default function Home() {
       <Input
         value={apiKeyInputValue}
         onChange={handleApiKeyInputChange}
-        placeholder="Drop URL here..."
+        placeholder="Drop API Key here..."
         mt="2rem"
         width="50%"
       />
-      <Button colorScheme="blue" onClick={handleSubmitApiKey} mt="2rem">
+      <Button colorScheme="blue" onClick={handleValidateApiKeys} mt="2rem">
         Submit API Key
       </Button>
       <Input
@@ -72,7 +72,7 @@ export default function Home() {
         mt="2rem"
         width="50%"
       />
-      <Button colorScheme="blue" onClick={handleSubmitUrl} mt="2rem">
+      <Button colorScheme="blue" onClick={handlePostEntries} mt="2rem">
         Submit Url
       </Button>
     </Flex>

@@ -1,20 +1,22 @@
 
-import { SubmitApiKeyResponse, submitApiKeyResponseSchema } from "@/types/submit_api_key";
+import { _PostResponse, _postResponseSchema } from "@/types/entries/_post";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function submit_api_key(apiKey: string): Promise<SubmitApiKeyResponse> {
+export async function _post(url: string): Promise<_PostResponse> {
 
     try {
         const response = await axios.post(
-            `${API_URL}/api/submit_api_key`, 
+            `${API_URL}/api/entries`, 
             {
-                apiKey
+                url
             },
         );
+        console.log(response.data)
         console.log(response.status)
-        const parsedResponse = submitApiKeyResponseSchema.parse({
+        const parsedResponse = _postResponseSchema.parse({
+            data: response.data,
             status: response.status
         });
         console.log(parsedResponse);

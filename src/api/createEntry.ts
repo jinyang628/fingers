@@ -1,15 +1,29 @@
+
+import { CreateEntryResponse, createEntryResponseSchema } from "@/types/createEntry";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function createEntry(url: string) {
-  try {
-    const response = await axios.post(`${API_URL}/api/createEntry`, {
-      url,
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+export async function createEntry(url: string): Promise<CreateEntryResponse> {
+
+    try {
+        const response = await axios.post(
+            `${API_URL}/api/createEntry`, 
+            {
+                url
+            },
+        );
+        console.log(response.data)
+        console.log(response.status)
+        const parsedResponse = createEntryResponseSchema.parse({
+            data: response.data,
+            status: response.status
+        });
+        console.log(parsedResponse);
+        return parsedResponse;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+    
 }

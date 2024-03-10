@@ -1,9 +1,13 @@
 import { createEntry } from "@/api/createEntry";
 import { Flex, Button, Text, Input } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRouter } from 'next/router';
 
 export default function Home() {
-  const [inputValue, setInputValue] = useState("");
+
+  const router = useRouter()
+  
+  const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e: any) => {
     setInputValue(e.target.value);
@@ -11,8 +15,16 @@ export default function Home() {
 
   const handleSubmit = async () => {
     try {
-      const response: string = await createEntry(inputValue);
-      console.log(response);
+      const { data, status } = await createEntry(inputValue);
+      console.log(data)
+      console.log(status)
+      if ( status == 200 ) {
+        router.push('/output');
+      } else if (status == 500) {
+        console.error("Error pushing to database");
+      } else {
+        console.error("Unknown error", status);
+      }
     } catch (error: any) {
       console.error(error);
     }

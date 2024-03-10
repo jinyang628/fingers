@@ -1,21 +1,21 @@
-import { SendUrlResponse, sendUrlResponseSchema } from "@/types/sendUrl";
+
+import { CreateEntryResponse, createEntryResponseSchema } from "@/types/createEntry";
 import axios from "axios";
-import { z } from 'zod';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function sendUrl(url: string): Promise<SendUrlResponse> {
+export async function createEntry(url: string): Promise<CreateEntryResponse> {
 
     try {
         const response = await axios.post(
-            `${API_URL}/api/sendUrl`, 
+            `${API_URL}/api/createEntry`, 
             {
                 url
             },
         );
         console.log(response.data)
         console.log(response.status)
-        const parsedResponse = sendUrlResponseSchema.parse({
+        const parsedResponse = createEntryResponseSchema.parse({
             data: response.data,
             status: response.status
         });

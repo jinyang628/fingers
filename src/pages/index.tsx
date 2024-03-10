@@ -1,7 +1,6 @@
-import { sendUrl } from '@/api/sendUrl';
-import { Flex, Button, Text, Input } from '@chakra-ui/react';
-import { useState } from 'react';
-import Link from 'next/link';
+import { createEntry } from "@/api/createEntry";
+import { Flex, Button, Text, Input } from "@chakra-ui/react";
+import { useState } from "react";
 import { useRouter } from 'next/router';
 
 export default function Home() {
@@ -16,7 +15,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     try {
-      const { data, status } = await sendUrl(inputValue);
+      const { data, status } = await createEntry(inputValue);
       console.log(data)
       console.log(status)
       if ( status == 200 ) {
@@ -32,25 +31,16 @@ export default function Home() {
   };
 
   return (
-    <Flex 
-      direction="column" 
-      align="center" 
-      justify="center" 
-      height="100vh"
-    >
-      <Text fontSize='6xl'>Still Human</Text>
-      <Input 
+    <Flex direction="column" align="center" justify="center" height="100vh">
+      <Text fontSize="6xl">Still Human</Text>
+      <Input
         value={inputValue}
         onChange={handleInputChange}
         placeholder="Drop URL here..."
-        mt="2rem" 
+        mt="2rem"
         width="50%"
       />
-      <Button 
-        colorScheme="blue"
-        onClick={handleSubmit}
-        mt="2rem" 
-      >
+      <Button colorScheme="blue" onClick={handleSubmit} mt="2rem">
         Submit
       </Button>
     </Flex>

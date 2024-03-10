@@ -13,13 +13,10 @@ export async function _post(url: string): Promise<_PostResponse> {
                 url
             },
         );
-        console.log(response.data)
-        console.log(response.status)
         const parsedResponse = _postResponseSchema.parse({
-            data: response.data,
+            url: response.data.url,
             status: response.status
         });
-        console.log(parsedResponse);
         return parsedResponse;
     } catch (error) {
         console.error(error);

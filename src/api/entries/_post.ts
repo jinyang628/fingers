@@ -14,7 +14,6 @@ export async function _post(url: string): Promise<_PostResponse> {
             },
         );
         const parsedResponse = _postResponseSchema.parse({
-            url: response.data.url,
             status: response.status
         });
         return parsedResponse;

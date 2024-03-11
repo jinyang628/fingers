@@ -18,7 +18,6 @@ export async function _post(url: string): Promise<_PostResponse> {
             data: response.data,
             status: response.status
         });
-        console.log(parsedResponse)
         return parsedResponse;
     } catch (error) {
         console.error(error);

@@ -37,7 +37,7 @@ export default function Home() {
 
   const handlePostEntries = async () => {
     try {
-      const { status } = await _post(urlInputValue);
+      const { data, status } = await _post(urlInputValue);
       if ( status == 200 ) {
         router.push('/output');
       } else if (status == 500) {

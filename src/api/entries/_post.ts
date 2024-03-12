@@ -15,7 +15,7 @@ export async function _post(url: string): Promise<_PostResponse> {
         );
 
         const parsedResponse = _postResponseSchema.parse({
-            data: response.data,
+            message: response.data.message,
             status: response.status
         });
         return parsedResponse;

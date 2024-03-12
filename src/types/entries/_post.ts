@@ -1,10 +1,7 @@
 import { z } from 'zod';
 
 export const _postResponseSchema = z.object({
-    data: z.object({
-        summary: z.string(),
-        code: z.string(),
-    }),
+    message: z.string(),
     status: z.number(),
 });
 

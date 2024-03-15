@@ -1,5 +1,5 @@
 
-import { _GetResponse, _getResponseSchema } from "@/types/infer/_get";
+import { _GetResponse, _getResponseSchema } from "@/types/api/infer/_get";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;

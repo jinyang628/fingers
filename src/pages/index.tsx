@@ -3,13 +3,17 @@ import { Flex, Button, Text, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 import { validate } from "@/api/api_keys/validate";
+import Tasks, { TaskEnum } from "@/components/ui/tasks";
+import { _postInputSchema } from "@/types/api/entries/_post";
 
 export default function Home() {
 
   const router = useRouter()
   
   const [apiKeyInputValue, setApiKeyInputValue] = useState('');
+  const [validatedApiKey, setValidatedApiKey] = useState('');
   const [urlInputValue, setUrlInputValue] = useState('');
+  const [checkedItems, setCheckedItems] = useState<TaskEnum[]>([]);
 
   const handleApiKeyInputChange = (e: any) => {
     setApiKeyInputValue(e.target.value);
@@ -22,9 +26,8 @@ export default function Home() {
   const handleValidateApiKeys = async () => {
     try {
       const { status } = await validate(apiKeyInputValue);
-      console.log(status)
       if ( status == 200 ) {
-        console.log("API KEY RECEIVED SUCCESSFULLY");
+        setValidatedApiKey(apiKeyInputValue);
       } else if (status == 500) {
         console.error("Error pushing to database");
       } else {
@@ -37,7 +40,12 @@ export default function Home() {
 
   const handlePostEntries = async () => {
     try {
-      const { data, status } = await _post(urlInputValue);
+      const parsedInput = _postInputSchema.parse({
+        apiKey: validatedApiKey,
+        url: urlInputValue,
+        tasks: checkedItems
+      }); 
+      const { message, status } = await _post(parsedInput);
       if ( status == 200 ) {
         router.push('/output');
       } else if (status == 500) {
@@ -53,6 +61,7 @@ export default function Home() {
   return (
     <Flex direction="column" align="center" justify="center" height="100vh">
       <Text fontSize="6xl">Still Human</Text>
+      
       <Input
         value={apiKeyInputValue}
         onChange={handleApiKeyInputChange}
@@ -60,9 +69,14 @@ export default function Home() {
         mt="2rem"
         width="50%"
       />
-      <Button colorScheme="blue" onClick={handleValidateApiKeys} mt="2rem">
+      <Button 
+        colorScheme="blue" 
+        onClick={handleValidateApiKeys} 
+        mt="2rem"
+      >
         Submit API Key
       </Button>
+      <Tasks checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
       <Input
         value={urlInputValue}
         onChange={handleUrlInputChange}
@@ -70,7 +84,12 @@ export default function Home() {
         mt="2rem"
         width="50%"
       />
-      <Button colorScheme="blue" onClick={handlePostEntries} mt="2rem">
+      <Button 
+        colorScheme="blue" 
+        onClick={handlePostEntries} 
+        mt="2rem"
+        isDisabled={validatedApiKey.length == 0}
+      >
         Submit Url
       </Button>
     </Flex>

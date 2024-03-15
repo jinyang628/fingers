@@ -1,5 +1,5 @@
 
-import { ValidateResponse, validateResponseSchema } from "@/types/api_keys/validate";
+import { ValidateResponse, validateResponseSchema } from "@/types/api/api_keys/validate";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;

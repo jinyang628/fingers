@@ -1,16 +1,19 @@
 
-import { _PostResponse, _postResponseSchema } from "@/types/entries/_post";
+import { _PostInput, _PostResponse, _postResponseSchema } from "@/types/api/entries/_post";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function _post(url: string): Promise<_PostResponse> {
+
+export async function _post(input: _PostInput): Promise<_PostResponse> {
 
     try {
         const response = await axios.post(
             `${API_URL}/api/entries`, 
             {
-                url
+                apiKey: input.apiKey,  // Must unwrap so FastAPI in stomach receives correct shape
+                url: input.url,
+                tasks: input.tasks
             },
         );
 

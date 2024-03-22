@@ -11,7 +11,8 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
         const response = await axios.post(
             `${API_URL}/api/entries`, 
             {
-                apiKey: input.apiKey,  // Must unwrap so FastAPI in stomach receives correct shape
+                // Must unwrap so FastAPI in stomach receives correct shape
+                api_key: input.api_key, 
                 url: input.url,
                 tasks: input.tasks
             },

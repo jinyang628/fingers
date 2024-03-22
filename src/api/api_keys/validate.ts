@@ -10,14 +10,17 @@ export async function validate(api_key: string): Promise<ValidateResponse> {
         const response = await axios.get(
             `${API_URL}/api/api_keys/validate/${api_key}`, 
         );
-        console.log(response.status)
         const parsedResponse = validateResponseSchema.parse({
             status: response.status
         });
-        console.log(parsedResponse);
         return parsedResponse;
-    } catch (error) {
-        console.error(error);
+    } catch (error: any) {
+        if (error.response && error.response.status === 401) {
+            const parsedError = validateResponseSchema.parse({
+                status: error.response.status
+            })
+            return parsedError;
+        }
         throw error;
     }
     

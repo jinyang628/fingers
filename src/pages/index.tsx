@@ -3,8 +3,9 @@ import { Flex, Button, Text, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 import { validate } from "@/api/api_keys/validate";
-import Tasks, { TaskEnum } from "@/components/ui/tasks";
+import Tasks from "@/components/ui/tasks";
 import { _postInputSchema } from "@/types/api/entries/_post";
+import { TaskEnum } from "@/types/components/ui/tasks";
 
 export default function Home() {
 
@@ -12,6 +13,7 @@ export default function Home() {
   
   const [apiKeyInputValue, setApiKeyInputValue] = useState('');
   const [validatedApiKey, setValidatedApiKey] = useState('');
+  const [apiKeyValidationMessage, setApiKeyValidationMessage] = useState({ message: '', color: '' });
   const [urlInputValue, setUrlInputValue] = useState('');
   const [checkedItems, setCheckedItems] = useState<TaskEnum[]>([]);
 
@@ -28,20 +30,22 @@ export default function Home() {
       const { status } = await validate(apiKeyInputValue);
       if ( status == 200 ) {
         setValidatedApiKey(apiKeyInputValue);
-      } else if (status == 500) {
-        console.error("Error pushing to database");
+        setApiKeyValidationMessage({ message: 'API Key validated', color: 'green' });
+      } else if (status == 401) {
+        setValidatedApiKey('');
+        setApiKeyValidationMessage({ message: 'API Key is not valid', color: 'red' });
       } else {
-        console.error("Unknown error", status);
+        setApiKeyValidationMessage({ message: 'Unknown error', color: 'red' });
       }
     } catch (error: any) {
-      console.error(error);
+      setApiKeyValidationMessage({ message: 'Error occurred', color: 'red' });
     }
   };
 
   const handlePostEntries = async () => {
     try {
       const parsedInput = _postInputSchema.parse({
-        apiKey: validatedApiKey,
+        api_key: validatedApiKey,
         url: urlInputValue,
         tasks: checkedItems
       }); 
@@ -76,6 +80,9 @@ export default function Home() {
       >
         Submit API Key
       </Button>
+      <Text mt="1rem" color={apiKeyValidationMessage.color}>
+        {apiKeyValidationMessage.message}
+      </Text>
       <Tasks checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
       <Input
         value={urlInputValue}
@@ -88,7 +95,7 @@ export default function Home() {
         colorScheme="blue" 
         onClick={handlePostEntries} 
         mt="2rem"
-        isDisabled={validatedApiKey.length == 0}
+        isDisabled={validatedApiKey.length == 0 || checkedItems.length == 0}
       >
         Submit Url
       </Button>

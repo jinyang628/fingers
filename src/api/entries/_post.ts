@@ -1,5 +1,5 @@
 
-import { _PostInput, _PostResponse, _postResponseSchema } from "@/types/api/entries/_post";
+import { _PostInput, _PostResponse, _postInputSchema, _postResponseSchema } from "@/types/api/entries/_post";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -7,14 +7,16 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function _post(input: _PostInput): Promise<_PostResponse> {
 
+    const validatedInput = _postInputSchema.parse(input);
+
     try {
         const response = await axios.post(
             `${API_URL}/api/entries`, 
             {
                 // Must unwrap so FastAPI in stomach receives correct shape
-                api_key: input.api_key, 
-                url: input.url,
-                tasks: input.tasks
+                api_key: validatedInput.api_key, 
+                url: validatedInput.url,
+                tasks: validatedInput.tasks
             },
         );
 

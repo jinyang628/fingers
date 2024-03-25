@@ -11,8 +11,8 @@ export type _PostInput = z.infer<typeof _postInputSchema>;
 
 export const _postResponseSchema = z.object({
     status: z.number(),
-    summary: z.string().optional(),
-    practice: z.string().optional(),
+    summary: z.string().nullable(),
+    practice: z.string().nullable(),
 });
 
 export type _PostResponse = z.infer<typeof _postResponseSchema>;

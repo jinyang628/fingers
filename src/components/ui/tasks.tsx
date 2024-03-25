@@ -1,5 +1,6 @@
 import { TaskEnum } from '@/types/components/ui/tasks';
 import { Checkbox, CheckboxGroup, Text, VStack } from '@chakra-ui/react'
+import { capitalizeFirstLetter } from '@/lib/utils';
 
 type TasksProps = {
     checkedItems: TaskEnum[];
@@ -17,8 +18,8 @@ export default function Tasks({checkedItems, setCheckedItems} : TasksProps) {
                 onChange={(values) => setCheckedItems(values as TaskEnum[])}
             >
                 <VStack align="start">
-                    <Checkbox value={TaskEnum.SUMMARISE}>{TaskEnum.SUMMARISE}</Checkbox>
-                    <Checkbox value={TaskEnum.PRACTICE}>{TaskEnum.PRACTICE}</Checkbox>
+                    <Checkbox value={TaskEnum.SUMMARISE}>{capitalizeFirstLetter(TaskEnum.SUMMARISE)}</Checkbox>
+                    <Checkbox value={TaskEnum.PRACTICE}>{capitalizeFirstLetter(TaskEnum.PRACTICE)}</Checkbox>
                 </VStack>
             </CheckboxGroup>
         </div>

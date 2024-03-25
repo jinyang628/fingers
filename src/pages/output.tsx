@@ -1,25 +1,19 @@
-import { _get } from '@/api/inference/_get';
 import Editor from '@/components/ui/editor';
 import React, { useEffect, useState } from 'react';
+import { useAppContext } from '../AppContext';
 
 export default function Output() {
-    const [data, setData] = useState({ summary: '', code: '' });
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        _get().then(response => {
-            setData(response);
-            setIsLoading(false);
-        }).catch(error => {
-            console.error("Failed to fetch data:", error);
-            setError(error);
-            setIsLoading(false);
-        });
-    }, []);
+    const { data } = useAppContext();
+    const { summary, practice } = data;
 
     return (
         // ML will need to give the default langauge input here 
-        <Editor defaultLanguage="javascript"/>
+        <div>
+            <Editor defaultLanguage="javascript"/>
+
+            {/* TODO: Format summary nicely and put practice code in the editor */}
+            <p>Summary: {summary}</p>
+            <p>Practice: {practice}</p>
+        </div>
     );
 }

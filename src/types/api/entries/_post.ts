@@ -10,8 +10,9 @@ export const _postInputSchema = z.object({
 export type _PostInput = z.infer<typeof _postInputSchema>;
 
 export const _postResponseSchema = z.object({
-    message: z.string(),
     status: z.number(),
+    summary: z.string().optional(),
+    practice: z.string().optional(),
 });
 
 export type _PostResponse = z.infer<typeof _postResponseSchema>;

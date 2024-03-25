@@ -6,17 +6,20 @@ import { validate } from "@/api/api_keys/validate";
 import Tasks from "@/components/ui/tasks";
 import { _postInputSchema } from "@/types/api/entries/_post";
 import { TaskEnum } from "@/types/components/ui/tasks";
+import { useAppContext } from '../AppContext';
+
 
 export default function Home() {
 
   const router = useRouter()
-  
+  const { setData } = useAppContext();
+
   const [apiKeyInputValue, setApiKeyInputValue] = useState('');
   const [validatedApiKey, setValidatedApiKey] = useState('');
   const [apiKeyValidationMessage, setApiKeyValidationMessage] = useState({ message: '', color: '' });
   const [urlInputValue, setUrlInputValue] = useState('');
   const [checkedItems, setCheckedItems] = useState<TaskEnum[]>([]);
-
+  
   const handleApiKeyInputChange = (e: any) => {
     setApiKeyInputValue(e.target.value);
   };
@@ -49,8 +52,9 @@ export default function Home() {
         url: urlInputValue,
         tasks: checkedItems
       }); 
-      const { message, status } = await _post(parsedInput);
+      const { status, summary, practice } = await _post(parsedInput);
       if ( status == 200 ) {
+        setData({ summary: summary, practice: practice });
         router.push('/output');
       } else if (status == 500) {
         console.error("Error pushing to database");

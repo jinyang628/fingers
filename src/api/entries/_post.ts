@@ -21,8 +21,9 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
         );
 
         const parsedResponse = _postResponseSchema.parse({
-            message: response.data.message,
-            status: response.status
+            status: response.status,
+            summary: response.data.summary,
+            practice: response.data.practice
         });
         return parsedResponse;
     } catch (error) {

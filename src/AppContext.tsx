@@ -2,12 +2,12 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type AppContextType = {
   data: {
-    summary?: string;
-    practice?: string;
+    summary: Record<string, string> | null;
+    practice: string | null;
   };
   setData: React.Dispatch<React.SetStateAction<{
-    summary?: string;
-    practice?: string;
+    summary: Record<string, string> | null;
+    practice: string | null;
   }>>;
 };
 
@@ -18,8 +18,8 @@ type AppWrapperProps = {
 };
 
 export function AppWrapper({ children }: AppWrapperProps) {
-  const [data, setData] = useState({
-    summary: '',
+  const [data, setData] = useState<{ summary: Record<string, string> | null; practice: string | null }>({
+    summary: null,
     practice: '',
   });
 

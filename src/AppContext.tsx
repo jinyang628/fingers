@@ -1,13 +1,16 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+export type SummaryType = Record<string, string> | null;
+export type PracticeType = [string, string][] | null;
+
 type AppContextType = {
   data: {
-    summary: Record<string, string> | null;
-    practice: string | null;
+    summary: SummaryType;
+    practice: PracticeType;
   };
   setData: React.Dispatch<React.SetStateAction<{
-    summary: Record<string, string> | null;
-    practice: string | null;
+    summary: SummaryType;
+    practice: PracticeType;
   }>>;
 };
 
@@ -18,9 +21,9 @@ type AppWrapperProps = {
 };
 
 export function AppWrapper({ children }: AppWrapperProps) {
-  const [data, setData] = useState<{ summary: Record<string, string> | null; practice: string | null }>({
+  const [data, setData] = useState<{ summary: SummaryType; practice: PracticeType }>({
     summary: null,
-    practice: '',
+    practice: null,
   });
 
   return (

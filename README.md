@@ -6,6 +6,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 npm i
 npm run dev
 ```
+## Set up .env
+Make a copy of the `.env.test` file and name it as `.env` in the same directory
+
 
 ## Deploy on Vercel
 

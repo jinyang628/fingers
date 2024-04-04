@@ -15,20 +15,21 @@ export default function Output() {
         ));
     };
 
-    const formatPractice = (practice: PracticeType) => {  
+    const formatPractice = (practice: PracticeType) => {
         if (!practice) return 'No practice available';
-        return practice.map(([language, question, answer], index) => (
+        return practice.map((item, index) => (
             <div key={index}>
                 <p>Language</p>
-                <strong>{language}</strong> 
+                <strong>{item.language}</strong> 
                 <p>Question</p>
-                <strong>{question}</strong>
+                <strong>{item.question}</strong> 
                 <p>Answer</p>
-                <strong>{answer}</strong>
+                <strong>{item.answer}</strong>
                 <br/>
             </div>
         ));
     }
+    
 
     return (
         // ML will need to give the default langauge input here 

@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export type SummaryType = Record<string, string> | null;
-export type PracticeType = [string, string, string][] | null;
+
+type PracticeItemType = {
+  language: string;
+  question: string;
+  answer: string;
+};
+export type PracticeType = PracticeItemType[] | null;
 
 type AppContextType = {
   data: {

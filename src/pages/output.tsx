@@ -17,9 +17,15 @@ export default function Output() {
 
     const formatPractice = (practice: PracticeType) => {  
         if (!practice) return 'No practice available';
-        return practice.map(([key, value], index) => (
+        return practice.map(([language, question, answer], index) => (
             <div key={index}>
-                <strong>{key}:</strong> {value}
+                <p>Language</p>
+                <strong>{language}</strong> 
+                <p>Question</p>
+                <strong>{question}</strong>
+                <p>Answer</p>
+                <strong>{answer}</strong>
+                <br/>
             </div>
         ));
     }

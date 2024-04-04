@@ -9,7 +9,7 @@ export const _postInputSchema = z.object({
 
 export type _PostInput = z.infer<typeof _postInputSchema>;
 
-const practiceTuple = z.tuple([z.string(), z.string()]);
+const practiceTuple = z.tuple([z.string(), z.string(), z.string()]);
 
 export const _postResponseSchema = z.object({
     status: z.number(),

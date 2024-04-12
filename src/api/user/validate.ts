@@ -1,5 +1,5 @@
 
-import { ValidateResponse, validateResponseSchema } from "@/types/api/api_keys/validate";
+import { ValidateResponse, validateResponseSchema } from "@/types/api/user/validate";
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -8,7 +8,7 @@ export async function validate(api_key: string): Promise<ValidateResponse> {
 
     try {
         const response = await axios.get(
-            `${API_URL}/api/api_keys/validate/${api_key}`, 
+            `${API_URL}/api/user/validate/${api_key}`, 
         );
         const parsedResponse = validateResponseSchema.parse({
             status: response.status

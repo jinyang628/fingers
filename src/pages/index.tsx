@@ -1,10 +1,10 @@
-import { _post } from "@/api/entries/_post";
+import { _post } from "@/api/entry/_post";
 import { Flex, Button, Text, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from 'next/router';
-import { validate } from "@/api/api_keys/validate";
+import { validate } from "@/api/user/validate";
 import Tasks from "@/components/ui/tasks";
-import { _postInputSchema } from "@/types/api/entries/_post";
+import { _postInputSchema } from "@/types/api/entry/_post";
 import { TaskEnum } from "@/types/components/ui/tasks";
 import { useAppContext } from '../AppContext';
 

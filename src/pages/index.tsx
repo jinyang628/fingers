@@ -1,5 +1,7 @@
 import { _post } from "@/api/entry/_post";
-import { Flex, Button, Text, Input } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input"
+import { Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 import { validate } from "@/api/user/validate";
@@ -68,19 +70,16 @@ export default function Home() {
 
   return (
     <Flex direction="column" align="center" justify="center" height="100vh">
-      <Text fontSize="6xl">Still Human</Text>
+      <h1 className="text-4xl text-center mb-4">stillhuman</h1>
       
       <Input
         value={apiKeyInputValue}
         onChange={handleApiKeyInputChange}
         placeholder="Drop API Key here..."
-        mt="2rem"
-        width="50%"
+        className="max-w-2xl my-10"
       />
       <Button 
-        colorScheme="blue" 
         onClick={handleValidateApiKeys} 
-        mt="2rem"
       >
         Submit API Key
       </Button>
@@ -92,14 +91,11 @@ export default function Home() {
         value={urlInputValue}
         onChange={handleUrlInputChange}
         placeholder="Drop URL here..."
-        mt="2rem"
-        width="50%"
+        className="max-w-2xl my-10"
       />
       <Button 
-        colorScheme="blue" 
         onClick={handlePostEntries} 
-        mt="2rem"
-        isDisabled={validatedApiKey.length == 0 || checkedItems.length == 0}
+        disabled={validatedApiKey.length == 0 || checkedItems.length == 0}
       >
         Submit Url
       </Button>

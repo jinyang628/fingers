@@ -10,6 +10,7 @@ export const _postInputSchema = z.object({
 export type _PostInput = z.infer<typeof _postInputSchema>;
 
 const practiceDictionary = z.object({
+    "summary_chunk": z.string(),
     "language": z.string(), 
     "question": z.string(), 
     "answer": z.string()

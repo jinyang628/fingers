@@ -11,6 +11,7 @@ export default function Output() {
 
   const defaultPracticeItem = {
     language: "javascript",
+    summary_chunk: "Javascript is a programming language that is used in a variety of scripting languages for web development. Notably, it is used in React, Angular, and Vue.",
     question: "What is React?",
     answer: "React is a JavaScript library for building user interfaces.",
   };
@@ -88,6 +89,8 @@ export default function Output() {
       <div key={index} className="mb-4">
         <p>Language</p>
         <strong>{item.language}</strong>
+        <p>Summary Chunk</p>
+        <strong>{item.summary_chunk}</strong>
         <p>Question</p>
         <strong>{item.question}</strong>
         <p>Answer</p>
@@ -124,7 +127,20 @@ export default function Output() {
           {editPractice
             ? editablePractice.map((item, index) => (
                 <div key={index} className="mb-4">
-                  Language
+                  Summary Chunk
+                  <textarea
+                    className="w-full p-2 border border-gray-300 rounded"
+                    value={item.question}
+                    onChange={(e) =>
+                      handleInputChange(
+                        "practice",
+                        "summary_chunk",
+                        e.target.value,
+                        index
+                      )
+                    }
+                  />
+                  Question
                   <textarea
                     className="w-full p-2 border border-gray-300 rounded"
                     value={item.question}
@@ -137,7 +153,7 @@ export default function Output() {
                       )
                     }
                   />
-                  Question
+                  Answer
                   <textarea
                     className="w-full p-2 border border-gray-300 rounded"
                     value={item.answer}
@@ -156,6 +172,8 @@ export default function Output() {
                 <div key={index} className="mb-4">
                   <strong>Language</strong>
                   <p>{item.language}</p>
+                  <strong>Summary Chunk</strong>
+                  <p>{item.summary_chunk}</p>
                   <strong>Question</strong>
                   <p>{item.question}</p>
                   <strong>Answer</strong>

@@ -4,6 +4,7 @@ export type SummaryType = Record<string, string> | null;
 
 type PracticeItemType = {
   language: string;
+  summary_chunk: string;
   question: string;
   answer: string;
 };

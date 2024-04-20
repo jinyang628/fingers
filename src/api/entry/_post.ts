@@ -20,6 +20,8 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
             },
         );
 
+        console.log(response)
+
         const parsedResponse = _postResponseSchema.parse({
             status: response.status,
             summary: response.data.summary,

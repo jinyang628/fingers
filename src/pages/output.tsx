@@ -11,21 +11,21 @@ export default function Output() {
 
   const defaultPracticeItem = {
     language: "javascript",
-    summary_chunk: "Javascript is a programming language that is used in a variety of scripting languages for web development. Notably, it is used in React, Angular, and Vue.",
+    summary_chunk:
+      "Javascript is a programming language that is used in a variety of scripting languages for web development. Notably, it is used in React, Angular, and Vue.",
     question: "What is React?",
     answer: "React is a JavaScript library for building user interfaces.",
   };
-  const defaultPracticeData = [defaultPracticeItem];
-  const defaultSummary = { content: "This is a summary" };
 
   const [editableSummary, setEditableSummary] = useState(
-    summary || defaultSummary
+    summary || { content: "This is a summary." }
   );
   const [editablePractice, setEditablePractice] = useState(
-    practice || defaultPracticeData
+    practice || [defaultPracticeItem]
   );
   const [editSummary, setEditSummary] = useState(false);
   const [editPractice, setEditPractice] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const toggleEditSummary = () => {
     setEditSummary(!editSummary);
@@ -34,6 +34,7 @@ export default function Output() {
   const toggleEditPractice = () => {
     setEditPractice(!editPractice);
   };
+  const toggleShowAnswer = () => setShowAnswer(!showAnswer);
 
   const handleInputChange = (
     type: string,
@@ -74,32 +75,6 @@ export default function Output() {
     }
   };
 
-  const formatSummary = (summary: SummaryType) => {
-    if (!summary) return "No summary available";
-    return Object.entries(summary).map(([key, value], index) => (
-      <div key={index} className="mb-2">
-        <strong>{key}:</strong> {value}
-      </div>
-    ));
-  };
-
-  const formatPractice = (practice: PracticeType) => {
-    if (!practice) return "No practice available";
-    return practice.map((item, index) => (
-      <div key={index} className="mb-4">
-        <p>Language</p>
-        <strong>{item.language}</strong>
-        <p>Summary Chunk</p>
-        <strong>{item.summary_chunk}</strong>
-        <p>Question</p>
-        <strong>{item.question}</strong>
-        <p>Answer</p>
-        <strong>{item.answer}</strong>
-        <br />
-      </div>
-    ));
-  };
-
   return (
     // ML will need to give the default langauge input here
     <div className="max-w-4xl mx-auto mt-8 p-4">
@@ -127,10 +102,10 @@ export default function Output() {
           {editPractice
             ? editablePractice.map((item, index) => (
                 <div key={index} className="mb-4">
-                  Summary Chunk
+                  Context
                   <textarea
                     className="w-full p-2 border border-gray-300 rounded"
-                    value={item.question}
+                    value={item.summary_chunk}
                     onChange={(e) =>
                       handleInputChange(
                         "practice",
@@ -172,7 +147,7 @@ export default function Output() {
                 <div key={index} className="mb-4">
                   <strong>Language</strong>
                   <p>{item.language}</p>
-                  <strong>Summary Chunk</strong>
+                  <strong>Context</strong>
                   <p>{item.summary_chunk}</p>
                   <strong>Question</strong>
                   <p>{item.question}</p>
@@ -181,19 +156,31 @@ export default function Output() {
                   <br />
                 </div>
               ))}
-          <Button onClick={toggleEditPractice} className="py-2 px-4 rounded-md">
-            {editPractice ? <FiCheck /> : <FiEdit />}
-          </Button>
-        </div>
 
-        <Button
-          onClick={handleRecordToDB}
-          className="py-2 px-4 rounded-md mt-4"
-        >
-          Record Summary and Practice
-        </Button>
+          <div className="flex flex-row align-middle gap-4">
+            <Button
+              onClick={toggleEditPractice}
+              className="py-2 px-4 rounded-md"
+            >
+              {editPractice ? <FiCheck /> : <FiEdit />}
+            </Button>
+            <Button onClick={toggleShowAnswer} className="py-2 px-4 rounded-md">
+              {showAnswer ? "Hide Answer" : "Reveal Answer"}
+            </Button>
+            <Button onClick={handleRecordToDB} className="py-2 px-4 rounded-md">
+              Record Summary and Practice
+            </Button>
+          </div>
+        </div>
       </div>
-      <Editor defaultLanguage="javascript" />
+      <div className="mt-12">
+        <Editor
+          defaultLanguage={editablePractice[0].language}
+          defaultValue={editablePractice[0].question}
+          answer={editablePractice[0].answer}
+          showAnswer={showAnswer}
+        />
+      </div>
     </div>
   );
 }

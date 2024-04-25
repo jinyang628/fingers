@@ -102,7 +102,7 @@ export default function Output() {
         <h2 className="text-xl font-semibold mb-2">Practice</h2>
         {editPractice
           ? editablePractice.map((item, index) => (
-              <div key={index} className="">
+              <div key={index} className="mb-4">
                 Language
                 <textarea
                   className="w-full p-2 border border-gray-300 rounded"

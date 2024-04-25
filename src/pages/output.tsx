@@ -96,91 +96,95 @@ export default function Output() {
             {editSummary ? <FiCheck /> : <FiEdit />}
           </Button>
         </div>
+      </div>
 
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Practice</h2>
-          {editPractice
-            ? editablePractice.map((item, index) => (
-                <div key={index} className="mb-4">
-                  Context
-                  <textarea
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={item.summary_chunk}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "practice",
-                        "summary_chunk",
-                        e.target.value,
-                        index
-                      )
-                    }
-                  />
-                  Question
-                  <textarea
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={item.question}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "practice",
-                        "question",
-                        e.target.value,
-                        index
-                      )
-                    }
-                  />
-                  Answer
-                  <textarea
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={item.answer}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "practice",
-                        "answer",
-                        e.target.value,
-                        index
-                      )
-                    }
-                  />
-                </div>
-              ))
-            : editablePractice.map((item, index) => (
-                <div key={index} className="mb-4">
-                  <strong>Language</strong>
-                  <p>{item.language}</p>
-                  <strong>Context</strong>
-                  <p>{item.summary_chunk}</p>
-                  <strong>Question</strong>
-                  <p>{item.question}</p>
-                  <strong>Answer</strong>
-                  <p>{item.answer}</p>
-                  <br />
-                </div>
-              ))}
+      <div className="mt-6 p-4 border-2 border-slate-600 rounded-xl">
+        <h2 className="text-xl font-semibold mb-2">Practice</h2>
+        {editPractice
+          ? editablePractice.map((item, index) => (
+              <div key={index} className="">
+                Language
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.language}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "language",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Context
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.summary_chunk}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "summary_chunk",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Question
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.question}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "question",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Answer
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.answer}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "answer",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+              </div>
+            ))
+          : editablePractice.map((item, index) => (
+              <div key={index} className="mb-4">
+                <strong>Context</strong>
+                <p>{item.summary_chunk}</p>
+              </div>
+            ))}
 
-          <div className="flex flex-row align-middle gap-4">
-            <Button
-              onClick={toggleEditPractice}
-              className="py-2 px-4 rounded-md"
-            >
-              {editPractice ? <FiCheck /> : <FiEdit />}
-            </Button>
-            <Button onClick={toggleShowAnswer} className="py-2 px-4 rounded-md">
-              {showAnswer ? "Hide Answer" : "Reveal Answer"}
-            </Button>
-            <Button onClick={handleRecordToDB} className="py-2 px-4 rounded-md">
-              Record Summary and Practice
-            </Button>
-          </div>
+        <div className="flex flex-row align-middle gap-4">
+          <Button onClick={toggleEditPractice} className="py-2 px-4 rounded-md">
+            {editPractice ? <FiCheck /> : <FiEdit />}
+          </Button>
+          <Button onClick={toggleShowAnswer} className="py-2 px-4 rounded-md">
+            {showAnswer ? "Hide Answer" : "Reveal Answer"}
+          </Button>
+          <Button onClick={handleRecordToDB} className="py-2 px-4 rounded-md">
+            Record Summary and Practice
+          </Button>
         </div>
       </div>
-      <div className="mt-12">
-        <Editor
-          defaultLanguage={editablePractice[0].language}
-          defaultValue={editablePractice[0].question}
-          answer={editablePractice[0].answer}
-          showAnswer={showAnswer}
-        />
-      </div>
+
+      <div className="my-4">
+          <Editor
+            defaultLanguage={editablePractice[0].language}
+            defaultValue={editablePractice[0].question}
+            answer={editablePractice[0].answer}
+            showAnswer={showAnswer}
+          />
+        </div>
     </div>
   );
 }

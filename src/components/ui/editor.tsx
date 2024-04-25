@@ -14,8 +14,8 @@ export default function Editor({ defaultLanguage, defaultValue, answer, showAnsw
         <div className="flex flex-col items-center justify-center h-1/2">
             {/* https://www.npmjs.com/package/@monaco-editor/react */}
             <MonacoEditor
-                height="40vh"
-                width="90vw"
+                height="50vh"
+                width="55vw"
                 language={defaultLanguage}
                 defaultValue={defaultValue}
                 theme="vs-dark"
@@ -28,8 +28,8 @@ export default function Editor({ defaultLanguage, defaultValue, answer, showAnsw
             />
             {showAnswer && answer && (
                 <MonacoEditor
-                    height="30vh"
-                    width="90vw"
+                    height="50vh"
+                    width="55vw"
                     language={defaultLanguage}
                     defaultValue={answer}
                     theme="vs-dark"

@@ -16,9 +16,11 @@ const practiceDictionary = z.object({
     "answer": z.string()
 });
 
+const summaryDictionary = z.record(z.string(), z.string())
+
 export const _postResponseSchema = z.object({
     status: z.number(),
-    summary: z.record(z.string(), z.string()).nullable(),
+    summary: summaryDictionary.nullable(),
     practice: z.array(practiceDictionary).nullable(),
 });
 

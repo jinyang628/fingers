@@ -1,8 +1,7 @@
 import Editor from "@/components/ui/editor";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppContext, SummaryType, PracticeType } from "../AppContext";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { FiEdit, FiCheck } from "react-icons/fi";
 
 export default function Output() {
@@ -16,12 +15,15 @@ export default function Output() {
     question: "What is React?",
     answer: "React is a JavaScript library for building user interfaces.",
   };
+  const defaultPracticeData = [defaultPracticeItem];
+  const defaultSummary = { "Topic": "This is a summary" };
 
-  const [editableSummary, setEditableSummary] = useState(
-    summary || { content: "This is a summary." }
+  const [editableSummary, setEditableSummary] = useState<SummaryType>(
+    summary || defaultSummary
   );
-  const [editablePractice, setEditablePractice] = useState(
-    practice || [defaultPracticeItem]
+
+  const [editablePractice, setEditablePractice] = useState<PracticeType>(
+    practice || defaultPracticeData
   );
   const [editSummary, setEditSummary] = useState(false);
   const [editPractice, setEditPractice] = useState(false);
@@ -75,22 +77,30 @@ export default function Output() {
     }
   };
 
+  const formatSummary = (summary: SummaryType) => {
+    if (!summary) return "No summary available";
+    console.log(summary);
+    return Object.entries(summary)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join('\n'); // Each key-value pair is separated by a newline
+  };
+
   return (
     // ML will need to give the default langauge input here
     <div className="max-w-4xl mx-auto mt-8 p-4">
       <div className="flex flex-col justify-between items-start p-4 border-2 border-slate-600 rounded-xl">
         <div className="">
           <h2 className="text-xl font-semibold mb-2">Summary</h2>
-          {editSummary ? (
+          {editSummary && editableSummary != null ? (
             <textarea
               className="w-full p-2 border border-gray-300 rounded mb-4"
-              value={editableSummary.content}
+              value={formatSummary(editableSummary)}
               onChange={(e) =>
                 handleInputChange("summary", "content", e.target.value)
               }
             />
           ) : (
-            <div className="mb-4">{editableSummary.content}</div>
+            <div className="mb-4">{formatSummary(editableSummary)}</div>
           )}
           <Button onClick={toggleEditSummary} className="py-2 px-4 rounded-md">
             {editSummary ? <FiCheck /> : <FiEdit />}
@@ -100,7 +110,7 @@ export default function Output() {
 
       <div className="mt-6 p-4 border-2 border-slate-600 rounded-xl">
         <h2 className="text-xl font-semibold mb-2">Practice</h2>
-        {editPractice
+        {editPractice && editablePractice != null
           ? editablePractice.map((item, index) => (
               <div key={index} className="mb-4">
                 Language

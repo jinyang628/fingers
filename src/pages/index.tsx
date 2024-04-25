@@ -16,8 +16,8 @@ import Tasks from "@/components/ui/tasks";
 import { _postInputSchema } from "@/types/api/entry/_post";
 import { TaskEnum } from "@/types/components/ui/tasks";
 import { useAppContext } from "../AppContext";
-import Image from 'next/image';
-import logo from '../../public/logo.png';
+import Image from "next/image";
+import logo from "../../public/logo.png";
 
 export default function Home() {
   const router = useRouter();
@@ -86,15 +86,12 @@ export default function Home() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <Image
-        src={logo}
-        width={200}
-        height={500}
-        alt="logo"
-      />
+      <Image src={logo} width={200} height={500} alt="logo" />
       <Card className="w-full max-w-2xl mx-auto my-10 p-6 bg-white shadow-lg rounded-lg">
         <CardHeader>
-          <CardTitle className="text-xl text-center">Pre-Beta MVP Release</CardTitle>
+          <CardTitle className="text-xl text-center">
+            Pre-Beta MVP Release
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-sm">
@@ -112,28 +109,42 @@ export default function Home() {
             checkedItems={checkedItems}
             setCheckedItems={setCheckedItems}
           />
-          <Input
-            value={apiKeyInputValue}
-            onChange={handleApiKeyInputChange}
-            placeholder="Drop stillhuman API Key here..."
-            className="w-full my-4"
-          />
-          <Button onClick={handleValidateApiKeys}>Submit API Key</Button>
+          <div className="flex flex-row gap-4 items-center">
+            <Input
+              value={apiKeyInputValue}
+              onChange={handleApiKeyInputChange}
+              placeholder="Drop stillhuman API Key here..."
+              className="w-3/4 my-4"
+            />
+            <Button
+              onClick={handleValidateApiKeys}
+              className="text-black bg-[#FFB02E] w-1/4"
+            >
+              Submit API Key
+            </Button>
+          </div>
+
           <div className="mt-4 text-lg text-gray-700">
             {apiKeyValidationMessage.message}
           </div>
-          <Input
-            value={urlInputValue}
-            onChange={handleUrlInputChange}
-            placeholder="Drop ChatGPT chat URL here..."
-            className="w-full my-4"
-          />
-          <Button
-            onClick={handlePostEntries}
-            disabled={validatedApiKey.length === 0 || checkedItems.length === 0}
-          >
-            Submit URL
-          </Button>
+
+          <div className="flex flex-row gap-4 items-center">
+            <Input
+              value={urlInputValue}
+              onChange={handleUrlInputChange}
+              placeholder="Drop ChatGPT chat URL here..."
+              className="w-3/4 my-4"
+            />
+            <Button
+              onClick={handlePostEntries}
+              className="text-black bg-[#FFB02E] w-1/4"
+              disabled={
+                validatedApiKey.length === 0 || checkedItems.length === 0
+              }
+            >
+              Submit URL
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

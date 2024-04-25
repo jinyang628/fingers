@@ -11,7 +11,8 @@ export default function Output() {
 
   const defaultPracticeItem = {
     language: "javascript",
-    summary_chunk: "Javascript is a programming language that is used in a variety of scripting languages for web development. Notably, it is used in React, Angular, and Vue.",
+    summary_chunk:
+      "Javascript is a programming language that is used in a variety of scripting languages for web development. Notably, it is used in React, Angular, and Vue.",
     question: "What is React?",
     answer: "React is a JavaScript library for building user interfaces.",
   };
@@ -27,6 +28,7 @@ export default function Output() {
   );
   const [editSummary, setEditSummary] = useState(false);
   const [editPractice, setEditPractice] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const toggleEditSummary = () => {
     setEditSummary(!editSummary);
@@ -35,6 +37,7 @@ export default function Output() {
   const toggleEditPractice = () => {
     setEditPractice(!editPractice);
   };
+  const toggleShowAnswer = () => setShowAnswer(!showAnswer);
 
   const handleInputChange = (
     type: string,
@@ -120,79 +123,95 @@ export default function Output() {
             {editSummary ? <FiCheck /> : <FiEdit />}
           </Button>
         </div>
+      </div>
 
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Practice</h2>
-          {editPractice && editablePractice != null
-            ? editablePractice.map((item, index) => (
-                <div key={index} className="mb-4">
-                  Summary Chunk
-                  <textarea
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={item.question}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "practice",
-                        "summary_chunk",
-                        e.target.value,
-                        index
-                      )
-                    }
-                  />
-                  Question
-                  <textarea
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={item.question}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "practice",
-                        "question",
-                        e.target.value,
-                        index
-                      )
-                    }
-                  />
-                  Answer
-                  <textarea
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={item.answer}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "practice",
-                        "answer",
-                        e.target.value,
-                        index
-                      )
-                    }
-                  />
-                </div>
-              ))
-            : editablePractice.map((item, index) => (
-                <div key={index} className="mb-4">
-                  <strong>Language</strong>
-                  <p>{item.language}</p>
-                  <strong>Summary Chunk</strong>
-                  <p>{item.summary_chunk}</p>
-                  <strong>Question</strong>
-                  <p>{item.question}</p>
-                  <strong>Answer</strong>
-                  <p>{item.answer}</p>
-                  <br />
-                </div>
-              ))}
+      <div className="mt-6 p-4 border-2 border-slate-600 rounded-xl">
+        <h2 className="text-xl font-semibold mb-2">Practice</h2>
+        {editPractice && editablePractice != null
+          ? editablePractice.map((item, index) => (
+              <div key={index} className="mb-4">
+                Language
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.language}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "language",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Context
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.summary_chunk}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "summary_chunk",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Question
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.question}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "question",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Answer
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.answer}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "answer",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+              </div>
+            ))
+          : editablePractice.map((item, index) => (
+              <div key={index} className="mb-4">
+                <strong>Context</strong>
+                <p>{item.summary_chunk}</p>
+              </div>
+            ))}
+
+        <div className="flex flex-row align-middle gap-4">
           <Button onClick={toggleEditPractice} className="py-2 px-4 rounded-md">
             {editPractice ? <FiCheck /> : <FiEdit />}
           </Button>
+          <Button onClick={toggleShowAnswer} className="py-2 px-4 rounded-md">
+            {showAnswer ? "Hide Answer" : "Reveal Answer"}
+          </Button>
+          <Button onClick={handleRecordToDB} className="py-2 px-4 rounded-md">
+            Record Summary and Practice
+          </Button>
         </div>
-
-        <Button
-          onClick={handleRecordToDB}
-          className="py-2 px-4 rounded-md mt-4"
-        >
-          Record Summary and Practice
-        </Button>
       </div>
-      <Editor defaultLanguage="javascript" />
+
+      <div className="my-4">
+          <Editor
+            defaultLanguage={editablePractice[0].language}
+            defaultValue={editablePractice[0].question}
+            answer={editablePractice[0].answer}
+            showAnswer={showAnswer}
+          />
+        </div>
     </div>
   );
 }

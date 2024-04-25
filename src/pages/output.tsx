@@ -1,8 +1,7 @@
 import Editor from "@/components/ui/editor";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppContext, SummaryType, PracticeType } from "../AppContext";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { FiEdit, FiCheck } from "react-icons/fi";
 
 export default function Output() {
@@ -80,26 +79,10 @@ export default function Output() {
 
   const formatSummary = (summary: SummaryType) => {
     if (!summary) return "No summary available";
+    console.log(summary);
     return Object.entries(summary)
       .map(([key, value]) => `${key}: ${value}`)
       .join('\n'); // Each key-value pair is separated by a newline
-  };
-
-  const formatPractice = (practice: PracticeType) => {
-    if (!practice) return "No practice available";
-    return practice.map((item, index) => (
-      <div key={index} className="mb-4">
-        <p>Language</p>
-        <strong>{item.language}</strong>
-        <p>Summary Chunk</p>
-        <strong>{item.summary_chunk}</strong>
-        <p>Question</p>
-        <strong>{item.question}</strong>
-        <p>Answer</p>
-        <strong>{item.answer}</strong>
-        <br />
-      </div>
-    ));
   };
 
   return (

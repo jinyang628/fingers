@@ -31,6 +31,7 @@ export default function Home() {
   });
   const [urlInputValue, setUrlInputValue] = useState("");
   const [checkedItems, setCheckedItems] = useState<TaskEnum[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleApiKeyInputChange = (e: any) => {
     setApiKeyInputValue(e.target.value);
@@ -64,6 +65,7 @@ export default function Home() {
   };
 
   const handlePostEntries = async () => {
+    setIsSubmitting(true);
     try {
       const parsedInput = _postInputSchema.parse({
         api_key: validatedApiKey,
@@ -82,6 +84,7 @@ export default function Home() {
     } catch (error: any) {
       console.error(error);
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -139,7 +142,7 @@ export default function Home() {
               onClick={handlePostEntries}
               className="text-black bg-[#FFB02E] w-1/4"
               disabled={
-                validatedApiKey.length === 0 || checkedItems.length === 0
+                isSubmitting || validatedApiKey.length === 0 || checkedItems.length === 0
               }
             >
               Submit URL

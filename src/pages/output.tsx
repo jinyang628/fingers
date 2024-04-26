@@ -15,8 +15,15 @@ export default function Output() {
     question: "What is React?",
     answer: "React is a JavaScript library for building user interfaces.",
   };
-  const defaultPracticeData = [defaultPracticeItem];
-  const defaultSummary = { "Topic": "This is a summary" };
+  const defaultPracticeItem2 = {
+    language: "python",
+    summary_chunk:
+      "Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.",
+    question: "What is NumPy?",
+    answer: "Numpy is a critical Python library widely used for numerical computing.",
+  };
+  const defaultPracticeData = [defaultPracticeItem, defaultPracticeItem2];
+  const defaultSummary = { Topic: "This is a summary" };
 
   const [editableSummary, setEditableSummary] = useState<SummaryType>(
     summary || defaultSummary
@@ -82,7 +89,7 @@ export default function Output() {
     console.log(summary);
     return Object.entries(summary)
       .map(([key, value]) => `${key}: ${value}`)
-      .join('\n'); // Each key-value pair is separated by a newline
+      .join("\n"); // Each key-value pair is separated by a newline
   };
 
   return (
@@ -165,36 +172,71 @@ export default function Output() {
                     )
                   }
                 />
+                <div className="flex flex-row align-middle gap-4">
+                  <Button
+                    onClick={toggleEditPractice}
+                    className="py-2 px-4 rounded-md"
+                  >
+                    {editPractice ? <FiCheck /> : <FiEdit />}
+                  </Button>
+                  <Button
+                    onClick={toggleShowAnswer}
+                    className="py-2 px-4 rounded-md"
+                  >
+                    {showAnswer ? "Hide Answer" : "Reveal Answer"}
+                  </Button>
+                  <Button
+                    onClick={handleRecordToDB}
+                    className="py-2 px-4 rounded-md"
+                  >
+                    Record Summary and Practice
+                  </Button>
+                </div>
+                <div className="my-4 mb-8">
+                  <Editor
+                    defaultLanguage={editablePractice[index].language}
+                    defaultValue={editablePractice[index].question}
+                    answer={editablePractice[index].answer}
+                    showAnswer={showAnswer}
+                  />
+                </div>
               </div>
             ))
           : editablePractice.map((item, index) => (
               <div key={index} className="mb-4">
                 <strong>Context</strong>
                 <p>{item.summary_chunk}</p>
+                <div className="flex flex-row align-middle gap-4 my-4">
+                  <Button
+                    onClick={toggleEditPractice}
+                    className="py-2 px-4 rounded-md"
+                  >
+                    {editPractice ? <FiCheck /> : <FiEdit />}
+                  </Button>
+                  <Button
+                    onClick={toggleShowAnswer}
+                    className="py-2 px-4 rounded-md"
+                  >
+                    {showAnswer ? "Hide Answer" : "Reveal Answer"}
+                  </Button>
+                  <Button
+                    onClick={handleRecordToDB}
+                    className="py-2 px-4 rounded-md"
+                  >
+                    Record Summary and Practice
+                  </Button>
+                </div>
+                <div className="my-4 mb-8">
+                  <Editor
+                    defaultLanguage={editablePractice[index].language}
+                    defaultValue={editablePractice[index].question}
+                    answer={editablePractice[index].answer}
+                    showAnswer={showAnswer}
+                  />
+                </div>
               </div>
             ))}
-
-        <div className="flex flex-row align-middle gap-4">
-          <Button onClick={toggleEditPractice} className="py-2 px-4 rounded-md">
-            {editPractice ? <FiCheck /> : <FiEdit />}
-          </Button>
-          <Button onClick={toggleShowAnswer} className="py-2 px-4 rounded-md">
-            {showAnswer ? "Hide Answer" : "Reveal Answer"}
-          </Button>
-          <Button onClick={handleRecordToDB} className="py-2 px-4 rounded-md">
-            Record Summary and Practice
-          </Button>
-        </div>
       </div>
-
-      <div className="my-4">
-          <Editor
-            defaultLanguage={editablePractice[0].language}
-            defaultValue={editablePractice[0].question}
-            answer={editablePractice[0].answer}
-            showAnswer={showAnswer}
-          />
-        </div>
     </div>
   );
 }

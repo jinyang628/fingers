@@ -66,25 +66,26 @@ export default function Home() {
 
   const handlePostEntries = async () => {
     setIsSubmitting(true);
-    try {
-      const parsedInput = _postInputSchema.parse({
-        api_key: validatedApiKey,
-        url: urlInputValue,
-        tasks: checkedItems,
+    const parsedInput = _postInputSchema.safeParse({
+      api_key: validatedApiKey,
+      url: urlInputValue,
+      tasks: checkedItems,
+    });
+    
+    if (parsedInput.success) {
+      // Pass the necessary data to the loading page
+      router.push({
+        pathname: '/loading',
+        query: {
+          apiKey: validatedApiKey,
+          url: urlInputValue,
+          tasks: JSON.stringify(checkedItems),
+        },
       });
-      const { status, summary, practice } = await _post(parsedInput);
-      if (status == 200) {
-        setData({ summary: summary, practice: practice });
-        router.push("/output");
-      } else if (status == 500) {
-        console.error("Error pushing to database");
-      } else {
-        console.error("Unknown error", status);
-      }
-    } catch (error: any) {
-      console.error(error);
+    } else {
+      console.error("Invalid input", parsedInput.error);
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   return (
@@ -121,13 +122,13 @@ export default function Home() {
             />
             <Button
               onClick={handleValidateApiKeys}
-              className="text-black bg-[#FFB02E] w-1/4"
+              className="text-black bg-[#FFB02E] hover:bg-[#d99018] w-1/4"
             >
               Submit API Key
             </Button>
           </div>
 
-          <div className="mt-4 text-lg text-gray-700">
+          <div className="flex justify-center text-lg text-red-600">
             {apiKeyValidationMessage.message}
           </div>
 
@@ -140,7 +141,7 @@ export default function Home() {
             />
             <Button
               onClick={handlePostEntries}
-              className="text-black bg-[#FFB02E] w-1/4"
+              className="text-black bg-[#FFB02E] hover:bg-[#d99018] w-1/4"
               disabled={
                 isSubmitting || validatedApiKey.length === 0 || checkedItems.length === 0
               }

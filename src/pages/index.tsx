@@ -48,19 +48,19 @@ export default function Home() {
         setValidatedApiKey(apiKeyInputValue);
         setApiKeyValidationMessage({
           message: "API Key validated",
-          color: "green",
+          color: "text-green-600",
         });
       } else if (status == 401) {
         setValidatedApiKey("");
         setApiKeyValidationMessage({
           message: "API Key is not valid",
-          color: "red",
+          color: "text-red-600",
         });
       } else {
-        setApiKeyValidationMessage({ message: "Unknown error", color: "red" });
+        setApiKeyValidationMessage({ message: "Unknown error", color: "text-red-600" });
       }
     } catch (error: any) {
-      setApiKeyValidationMessage({ message: "Error occurred", color: "red" });
+      setApiKeyValidationMessage({ message: "Error occurred", color: "text-red-600" });
     }
   };
 
@@ -128,7 +128,7 @@ export default function Home() {
             </Button>
           </div>
 
-          <div className="flex justify-center text-lg text-red-600">
+          <div className={`flex justify-center text-lg ${apiKeyValidationMessage.color}`}>
             {apiKeyValidationMessage.message}
           </div>
 

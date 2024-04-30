@@ -55,11 +55,11 @@ export default function Loading() {
           router.push("/output");
         } else {
           console.error("Failed to post data", response.status);
-          router.push("/error"); // Redirect to an error page or retry
+          // router.push("/error"); // Redirect to an error page or retry
         }
       } catch (error) {
         console.error("Error in API call", error);
-        router.push("/error"); // Redirect to an error page or retry
+        // router.push("/error"); // Redirect to an error page or retry
       }
     }
 

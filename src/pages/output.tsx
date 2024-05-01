@@ -97,7 +97,7 @@ export default function Output() {
     <div className="max-w-4xl mx-auto mt-8 p-4">
       <div className="flex flex-col justify-between items-start p-4 border-2 border-slate-600 rounded-xl">
         <div className="">
-          <h2 className="text-xl font-semibold mb-2">Summary</h2>
+          <h2 className="text-4xl font-semibold mb-2">Summary</h2>
           {editSummary && editableSummary != null ? (
             <textarea
               className="w-full p-2 border border-gray-300 rounded mb-4"
@@ -116,7 +116,7 @@ export default function Output() {
       </div>
 
       <div className="mt-6 p-4 border-2 border-slate-600 rounded-xl">
-        <h2 className="text-xl font-semibold mb-2">Practice</h2>
+        <h2 className="text-4xl font-semibold mb-2">Practice</h2>
         {editPractice && editablePractice != null
           ? editablePractice.map((item, index) => (
               <div key={index} className="mb-4">
@@ -204,7 +204,7 @@ export default function Output() {
             ))
           : editablePractice.map((item, index) => (
               <div key={index} className="mb-4">
-                <strong>Context</strong>
+                <h3 className="text-xl font-semibold">Question {index+1}</h3>
                 <p>{item.summary_chunk}</p>
                 <div className="flex flex-row align-middle gap-4 my-4">
                   <Button

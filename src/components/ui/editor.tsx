@@ -7,15 +7,16 @@ type EditorProps = {
   showAnswer?: boolean;
 };
 
+const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
+  ssr: false,
+});
+
 export default function Editor({
   defaultLanguage,
   defaultValue,
   answer,
   showAnswer,
 }: EditorProps) {
-  const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
-    ssr: false,
-  });
   return (
     <div className="flex flex-col items-center justify-center h-1/2">
       {/* https://www.npmjs.com/package/@monaco-editor/react */}
@@ -32,7 +33,7 @@ export default function Editor({
           },
         }}
       />
-      {showAnswer && answer && (
+      <div className={`${showAnswer ? "block" : "hidden"}`}>
         <MonacoEditor
           height="50vh"
           width="55vw"
@@ -41,7 +42,7 @@ export default function Editor({
           theme="vs-dark"
           options={{ readOnly: true, automaticLayout: true }}
         />
-      )}
+      </div>
       {/* Language Label */}
       <div className="flex justify-end w-full">
         <div className="p-2 text-sm bg-gray-700 text-white rounded-tl-md">

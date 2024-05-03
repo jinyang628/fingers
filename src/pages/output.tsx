@@ -181,7 +181,7 @@ export default function Output() {
                   </Button>
                   <Button
                     onClick={toggleShowAnswer}
-                    className="py-2 px-4 rounded-md"
+                    className="py-2 px-4 rounded-md w-32"
                   >
                     {showAnswer ? "Hide Answer" : "Reveal Answer"}
                   </Button>
@@ -215,7 +215,7 @@ export default function Output() {
                   </Button>
                   <Button
                     onClick={toggleShowAnswer}
-                    className="py-2 px-4 rounded-md"
+                    className="py-2 px-4 rounded-md w-32"
                   >
                     {showAnswer ? "Hide Answer" : "Reveal Answer"}
                   </Button>

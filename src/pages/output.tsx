@@ -53,7 +53,7 @@ export default function Output() {
   ) => {
     if (type === "summary") {
       setEditableSummary({ ...editableSummary, [field]: value });
-    } else if (type === "practice") {
+    } else if (type === "practice" && editablePractice) {
       const updatedItems = editablePractice.map((item, idx) => {
         if (idx === index) {
           return { ...item, [field]: value }; // Update the specific field of the practice item
@@ -94,7 +94,7 @@ export default function Output() {
 
   return (
     // ML will need to give the default langauge input here
-    <div className="max-w-4xl mx-auto mt-8 p-4">
+    <div className="max-w-7xl mx-auto mt-8 p-4">
       <div className="flex flex-col justify-between items-start p-4 border-2 border-slate-600 rounded-xl">
         <div className="">
           <h2 className="text-4xl font-semibold mb-2">Summary</h2>
@@ -117,7 +117,7 @@ export default function Output() {
 
       <div className="mt-6 p-4 border-2 border-slate-600 rounded-xl">
         <h2 className="text-4xl font-semibold mb-2">Practice</h2>
-        {editPractice && editablePractice != null
+        {editPractice && editablePractice
           ? editablePractice.map((item, index) => (
               <div key={index} className="mb-4">
                 Language
@@ -202,7 +202,7 @@ export default function Output() {
                 </div>
               </div>
             ))
-          : editablePractice.map((item, index) => (
+          :  editablePractice && editablePractice.map((item, index) => (
               <div key={index} className="mb-4">
                 <h3 className="text-xl font-semibold">Question {index+1}</h3>
                 <p>{item.summary_chunk}</p>
@@ -226,7 +226,7 @@ export default function Output() {
                     Record Summary and Practice
                   </Button>
                 </div>
-                <div className="my-4 mb-8">
+                <div className="my-4 mb-8 border-2 border-slate-600 rounded-xl">
                   <Editor
                     defaultLanguage={editablePractice[index].language}
                     defaultValue={editablePractice[index].question}

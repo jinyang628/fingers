@@ -26,7 +26,7 @@ export default function Editor({
   useEffect(() => {
     function updateSize() {
       if (parentRef.current) {
-        const width = parentRef.current.offsetWidth;
+        const width = (parentRef.current as HTMLElement).offsetWidth;
         setEditorWidth(`${width / 2}px`);
       }
     }

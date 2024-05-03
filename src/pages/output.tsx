@@ -20,7 +20,8 @@ export default function Output() {
     summary_chunk:
       "Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.",
     question: "What is NumPy?",
-    answer: "Numpy is a critical Python library widely used for numerical computing.",
+    answer:
+      "Numpy is a critical Python library widely used for numerical computing.",
   };
   const defaultPracticeData = [defaultPracticeItem, defaultPracticeItem2];
   const defaultSummary = { Topic: "This is a summary" };
@@ -88,31 +89,30 @@ export default function Output() {
     if (!summary) return "No summary available";
     console.log(summary);
     return Object.entries(summary)
-      .map(([key, value]) => `${key}: ${value}`)
-      .join("\n"); // Each key-value pair is separated by a newline
+      .map(([key, value]) => (
+        <div className=""><strong>{key}:</strong> {value}</div>
+      ));
   };
 
   return (
     // ML will need to give the default langauge input here
     <div className="max-w-7xl mx-auto mt-8 p-4">
       <div className="flex flex-col justify-between items-start p-4 border-2 border-slate-600 rounded-xl">
-        <div className="">
-          <h2 className="text-4xl font-semibold mb-2">Summary</h2>
-          {editSummary && editableSummary != null ? (
-            <textarea
-              className="w-full p-2 border border-gray-300 rounded mb-4"
-              value={formatSummary(editableSummary)}
-              onChange={(e) =>
-                handleInputChange("summary", "content", e.target.value)
-              }
-            />
-          ) : (
-            <div className="mb-4">{formatSummary(editableSummary)}</div>
-          )}
-          <Button onClick={toggleEditSummary} className="py-2 px-4 rounded-md">
-            {editSummary ? <FiCheck /> : <FiEdit />}
-          </Button>
-        </div>
+        <h2 className="text-4xl font-semibold mb-2">Summary</h2>
+        {editSummary && editableSummary != null ? (
+          <textarea
+            className="w-full h-60 p-2 border border-gray-300 rounded mb-4"
+            value={formatSummary(editableSummary)}
+            onChange={(e) =>
+              handleInputChange("summary", "content", e.target.value)
+            }
+          />
+        ) : (
+          <div className="mb-4">{formatSummary(editableSummary)}</div>
+        )}
+        <Button onClick={toggleEditSummary} className="py-2 px-4 rounded-md">
+          {editSummary ? <FiCheck /> : <FiEdit />}
+        </Button>
       </div>
 
       <div className="mt-6 p-4 border-2 border-slate-600 rounded-xl">
@@ -202,9 +202,10 @@ export default function Output() {
                 </div>
               </div>
             ))
-          :  editablePractice && editablePractice.map((item, index) => (
+          : editablePractice &&
+            editablePractice.map((item, index) => (
               <div key={index} className="mb-4">
-                <h3 className="text-xl font-semibold">Question {index+1}</h3>
+                <h3 className="text-xl font-semibold">Question {index + 1}</h3>
                 <p>{item.summary_chunk}</p>
                 <div className="flex flex-row align-middle gap-4 my-4">
                   <Button

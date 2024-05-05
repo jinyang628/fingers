@@ -13,16 +13,17 @@ export default function Output() {
     language: "javascript",
     summary_chunk:
       "Javascript is a programming language that is used in a variety of scripting languages for web development. Notably, it is used in React, Angular, and Vue.",
-    question: "What is React?",
-    answer: "React is a JavaScript library for building user interfaces.",
+    question: "Initialise a basic Hello World React component named App",
+    half_completed_code: "const App = () => // TODO: Add the missing line(s) below.",
+    fully_completed_code: "const App = () => { return <h1>Hello World</h1>; }",
   };
   const defaultPracticeItem2 = {
     language: "python",
     summary_chunk:
       "Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.",
-    question: "What is NumPy?",
-    answer:
-      "Numpy is a critical Python library widely used for numerical computing.",
+    question: "Write a function that returns the sum of two numbers",
+    half_completed_code: "def sum(a, b): # TODO: Add the missing line(s) below.",
+    fully_completed_code: "def sum(a, b): return a + b",
   };
   const defaultPracticeData = [defaultPracticeItem, defaultPracticeItem2];
   const defaultSummary = { Topic: "This is a summary" };
@@ -162,14 +163,27 @@ export default function Output() {
                     )
                   }
                 />
-                Answer
+                Half-completed code
                 <textarea
                   className="w-full p-2 border border-gray-300 rounded"
-                  value={item.answer}
+                  value={item.half_completed_code}
                   onChange={(e) =>
                     handleInputChange(
                       "practice",
-                      "answer",
+                      "half_completed_code",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Fully-completed code
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.fully_completed_code}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "practice",
+                      "fully_completed_code",
                       e.target.value,
                       index
                     )
@@ -198,8 +212,8 @@ export default function Output() {
                 <div className="my-4 mb-8">
                   <Editor
                     defaultLanguage={editablePractice[index].language}
-                    defaultValue={editablePractice[index].question}
-                    answer={editablePractice[index].answer}
+                    defaultValue={editablePractice[index].half_completed_code}
+                    answer={editablePractice[index].fully_completed_code}
                     showAnswer={showAnswer}
                   />
                 </div>
@@ -210,6 +224,7 @@ export default function Output() {
               <div key={index} className="mb-4">
                 <h3 className="text-xl font-semibold">Question {index + 1}</h3>
                 <p>{item.summary_chunk}</p>
+                <p className="font-extrabold, pt-3">{item.question}</p>
                 <div className="flex flex-row align-middle gap-4 my-4">
                   <Button
                     onClick={toggleEditPractice}
@@ -233,8 +248,8 @@ export default function Output() {
                 <div className="my-4 mb-8 border-2 border-slate-600 rounded-xl">
                   <Editor
                     defaultLanguage={editablePractice[index].language}
-                    defaultValue={editablePractice[index].question}
-                    answer={editablePractice[index].answer}
+                    defaultValue={editablePractice[index].half_completed_code}
+                    answer={editablePractice[index].fully_completed_code}
                     showAnswer={showAnswer}
                   />
                 </div>

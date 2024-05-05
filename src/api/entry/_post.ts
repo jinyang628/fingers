@@ -27,6 +27,7 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
             summary: response.data.summary,
             practice: response.data.practice
         });
+
         return parsedResponse;
     } catch (error) {
         console.error(error);

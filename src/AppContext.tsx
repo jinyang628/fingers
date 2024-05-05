@@ -6,7 +6,8 @@ type PracticeItemType = {
   language: string;
   summary_chunk: string;
   question: string;
-  answer: string;
+  half_completed_code: string;
+  fully_completed_code: string;
 };
 export type PracticeType = PracticeItemType[] | null;
 

@@ -12,8 +12,9 @@ export type _PostInput = z.infer<typeof _postInputSchema>;
 const practiceDictionary = z.object({
     "summary_chunk": z.string(),
     "language": z.string(), 
-    "question": z.string(), 
-    "answer": z.string()
+    "question": z.string(),
+    "half_completed_code": z.string(), 
+    "fully_completed_code": z.string(),
 });
 
 const summaryDictionary = z.record(z.string(), z.string())

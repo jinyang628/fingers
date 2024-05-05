@@ -1,4 +1,5 @@
 import Editor from "@/components/ui/editor";
+import ReactDOMServer from 'react-dom/server';
 import React, { useState } from "react";
 import { useAppContext, SummaryType, PracticeType } from "../AppContext";
 import { Button } from "@/components/ui/button";
@@ -87,11 +88,13 @@ export default function Output() {
 
   const formatSummary = (summary: SummaryType) => {
     if (!summary) return "No summary available";
-    console.log(summary);
-    return Object.entries(summary)
-      .map(([key, value]) => (
-        <div className=""><strong>{key}:</strong> {value}</div>
-      ));
+    const summaryElements = Object.entries(summary).map(([key, value]) => (
+      <div key={key} className="">
+        <strong>{key}:</strong> {value}
+      </div>
+    ));
+  
+    return summaryElements;
   };
 
   return (
@@ -102,7 +105,7 @@ export default function Output() {
         {editSummary && editableSummary != null ? (
           <textarea
             className="w-full h-60 p-2 border border-gray-300 rounded mb-4"
-            value={formatSummary(editableSummary)}
+            value={ReactDOMServer.renderToString(formatSummary(editableSummary))}
             onChange={(e) =>
               handleInputChange("summary", "content", e.target.value)
             }

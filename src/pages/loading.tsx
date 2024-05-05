@@ -44,7 +44,7 @@ export default function Loading() {
     async function postData() {
       if (!apiKey || !url || tasks.length === 0) {
         console.error("Missing data");
-        // router.push("/error"); // Redirect to an error page or retry
+        router.push("/error"); // Redirect to an error page or retry
         return;
       }
 

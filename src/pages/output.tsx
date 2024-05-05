@@ -224,7 +224,7 @@ export default function Output() {
               <div key={index} className="mb-4">
                 <h3 className="text-xl font-semibold">Question {index + 1}</h3>
                 <p>{item.summary_chunk}</p>
-                <p className="font-extrabold, pt-3">{item.question}</p>
+                <p className="font-extrabold pt-3">{item.question}</p>
                 <div className="flex flex-row align-middle gap-4 my-4">
                   <Button
                     onClick={toggleEditPractice}

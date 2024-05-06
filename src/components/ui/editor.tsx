@@ -64,19 +64,22 @@ export default function Editor({
             language={defaultLanguage}
             defaultValue={answer}
             theme="vs-dark"
-            options={{ readOnly: true, automaticLayout: true }}
+            options={{
+              readOnly: true,
+              automaticLayout: true,
+              padding: {
+                top: 20,
+              },
+            }}
           />
         </div>
         <div
-          className={`${showAnswer ? "hidden" : "block"} flex justify-center items-center`}
+          className={`${
+            showAnswer ? "hidden" : "block"
+          } flex justify-center items-center`}
           style={{ height: "50vh", width: editorWidth }}
         >
-          <Image
-            src={logo}
-            width={200}
-            height={200}
-            alt="logo"
-          />
+          <Image src={logo} width={200} height={200} alt="logo" />
         </div>
       </div>
 

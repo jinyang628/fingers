@@ -14,7 +14,8 @@ export default function Output() {
     summary_chunk:
       "Javascript is a programming language that is used in a variety of scripting languages for web development. Notably, it is used in React, Angular, and Vue.",
     question: "Initialise a basic Hello World React component named App",
-    half_completed_code: "const App = () => // TODO: Add the missing line(s) below.",
+    half_completed_code:
+      "const App = () => // TODO: Add the missing line(s) below.",
     fully_completed_code: "const App = () => { return <h1>Hello World</h1>; }",
   };
   const defaultPracticeItem2 = {
@@ -22,7 +23,8 @@ export default function Output() {
     summary_chunk:
       "Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.",
     question: "Write a function that returns the sum of two numbers",
-    half_completed_code: "def sum(a, b): # TODO: Add the missing line(s) below.",
+    half_completed_code:
+      "def sum(a, b): # TODO: Add the missing line(s) below.",
     fully_completed_code: "def sum(a, b): return a + b",
   };
   const defaultPracticeData = [defaultPracticeItem, defaultPracticeItem2];
@@ -221,30 +223,34 @@ export default function Output() {
             ))
           : editablePractice &&
             editablePractice.map((item, index) => (
-              <div key={index} className="mb-4">
-                <h3 className="text-xl font-semibold">Question {index + 1}</h3>
+              <div key={index} className="mb-28">
+                <div className="flex flex-row justify-between items-center gap-4 my-4">
+                  <h3 className="text-2xl font-semibold underline">
+                    Question {index + 1}
+                  </h3>
+                  <div className="flex flex-row gap-4">
+                    <Button
+                      onClick={toggleEditPractice}
+                      className="py-2 px-4 rounded-md"
+                    >
+                      {editPractice ? <FiCheck /> : <FiEdit />}
+                    </Button>
+                    <Button
+                      onClick={toggleShowAnswer}
+                      className="py-2 px-4 rounded-md w-32"
+                    >
+                      {showAnswer ? "Hide Answer" : "Reveal Answer"}
+                    </Button>
+                    <Button
+                      onClick={handleRecordToDB}
+                      className="py-2 px-4 rounded-md"
+                    >
+                      Record Summary and Practice
+                    </Button>
+                  </div>
+                </div>
                 <p>{item.summary_chunk}</p>
                 <p className="font-extrabold pt-3">{item.question}</p>
-                <div className="flex flex-row align-middle gap-4 my-4">
-                  <Button
-                    onClick={toggleEditPractice}
-                    className="py-2 px-4 rounded-md"
-                  >
-                    {editPractice ? <FiCheck /> : <FiEdit />}
-                  </Button>
-                  <Button
-                    onClick={toggleShowAnswer}
-                    className="py-2 px-4 rounded-md w-32"
-                  >
-                    {showAnswer ? "Hide Answer" : "Reveal Answer"}
-                  </Button>
-                  <Button
-                    onClick={handleRecordToDB}
-                    className="py-2 px-4 rounded-md"
-                  >
-                    Record Summary and Practice
-                  </Button>
-                </div>
                 <div className="my-4 mb-8 border-2 border-slate-600 rounded-xl">
                   <Editor
                     defaultLanguage={editablePractice[index].language}

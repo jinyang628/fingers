@@ -17,7 +17,18 @@ const practiceDictionary = z.object({
     "fully_completed_code": z.string(),
 });
 
-const summaryDictionary = z.record(z.string(), z.string())
+const keyConceptsDictionary = z.object({
+    "key_concept_title": z.string(),
+    "key_concept_content": z.string(),
+    "key_concept_code_example": z.string(),
+});
+
+const summaryDictionary = z.object({
+    "topic": z.string(),
+    "goal": z.string(),
+    "overview": z.string(),
+    "key_concepts": z.array(keyConceptsDictionary),
+})
 
 export const _postResponseSchema = z.object({
     status: z.number(),

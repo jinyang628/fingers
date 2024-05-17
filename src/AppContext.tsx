@@ -1,6 +1,12 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type SummaryType = Record<string, string> | null;
+type SummaryItemType = {
+  topic: string;
+  goal: string;
+  overview: string;
+  key_concepts: Record<string, string>[];
+}
+export type SummaryType = SummaryItemType[] | null;
 
 type PracticeItemType = {
   language: string;

@@ -28,6 +28,8 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
             practice: response.data.practice
         });
 
+        console.log(parsedResponse)
+
         return parsedResponse;
     } catch (error) {
         console.error(error);

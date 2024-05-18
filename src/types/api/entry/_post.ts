@@ -18,9 +18,9 @@ const practiceDictionary = z.object({
 });
 
 const keyConceptsDictionary = z.object({
-    "key_concept_title": z.string(),
+    "key_concept_header": z.string(),
     "key_concept_content": z.string(),
-    "key_concept_code_example": z.string(),
+    "key_concept_code_example": z.string().nullable(),
 });
 
 const summaryDictionary = z.object({

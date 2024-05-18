@@ -1,5 +1,4 @@
 import Editor from "@/components/ui/editor";
-import ReactDOMServer from 'react-dom/server';
 import React, { useState } from "react";
 import { useAppContext, SummaryType, PracticeType } from "../AppContext";
 import { Button } from "@/components/ui/button";
@@ -127,7 +126,7 @@ export default function Output() {
                     Key Concept Title
                     <textarea
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={concept.key_concept_title}
+                      value={concept.key_concept_header}
                       onChange={(e) =>
                         handleInputChange(
                           "summary",
@@ -153,7 +152,7 @@ export default function Output() {
                     Key Concept Code Example
                     <textarea
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={concept.key_concept_code_example}
+                      value={concept.key_concept_code_example || ""}
                       onChange={(e) =>
                         handleInputChange(
                           "summary",
@@ -207,11 +206,13 @@ export default function Output() {
                 <p className="mb-6">{item.overview}</p>
                 {item.key_concepts.map((concept, conceptIndex) => (
                   <div key={conceptIndex}>
-                    <h4 className="font-semibold">{concept.key_concept_title}</h4>
+                    <h4 className="font-semibold">{concept.key_concept_header}</h4>
                     <p>{concept.key_concept_content}</p>
-                    <div className="my-4 mb-8 border-2 border-slate-600 rounded-xl">
-                      <pre>{concept.key_concept_code_example}</pre>
-                    </div>
+                    {concept.key_concept_code_example && (
+                      <div className="my-4 mb-8 border-2 border-slate-600 rounded-xl">
+                        <pre>{concept.key_concept_code_example}</pre>
+                      </div>
+                    )}
                   </div>
                 ))}
                 </div>

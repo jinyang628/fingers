@@ -61,16 +61,17 @@ export default function Loading() {
 
       try {
         const response = await _post({ api_key: apiKey, url, tasks });
+        console.log(response)
         if (response.status === 200) {
           setData({ summary: response.summary, practice: response.practice });
           router.push("/output");
         } else {
           console.error("Failed to post data", response.status);
-          router.push("/error"); // Redirect to an error page or retry
+          router.push("/error");
         }
       } catch (error) {
         console.error("Error in API call", error);
-        router.push("/error"); // Redirect to an error page or retry
+        router.push("/error");
       }
     }
 

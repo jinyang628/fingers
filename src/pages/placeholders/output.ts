@@ -5,17 +5,16 @@ const defaultSummaryItem = {
     overview: "When working with datetime strings that include UTC offsets, it's crucial to handle time zones correctly to avoid errors and ensure data consistency across different geographical locations.",
     key_concepts: [
       {
-        key_concept_title: "UTC Offset",
+        key_concept_header: "UTC Offset",
         key_concept_content: "The difference in time (hours and minutes) between UTC and the local time zone, indicated in datetime strings as '+hh:mm' or '-hh:mm.'",
         key_concept_code_example: "offset_match = interval.match(/([+-])(\\d{2}):(\\d{2})/)",
       },
       {
-        key_concept_title: "Regex Extraction",
+        key_concept_header: "Regex Extraction",
         key_concept_content: "Regular expressions can be used to extract the UTC offset from datetime strings.",
-        key_concept_code_example: "hours, minutes = offset[1..2].ti_i, offset[4..5].to_i\ntotal_seconds= hours * 3600 + minutes * 60\noffset_seconds = offset[0] == '+' ? total_seconds : -total_seconds\nTime.at(time.to_i + offset_seconds).utc",
       },
     ],
-  };
+};
 export const defaultSummaryData = [defaultSummaryItem];
 
 // Practice placeholders in output page

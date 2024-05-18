@@ -1,10 +1,16 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+type KeyConceptType = {
+  key_concept_header: string;
+  key_concept_content: string;
+  key_concept_code_example?: string | null;
+}
+
 type SummaryItemType = {
   topic: string;
   goal: string;
   overview: string;
-  key_concepts: Record<string, string>[];
+  key_concepts: KeyConceptType[];
 }
 export type SummaryType = SummaryItemType[] | null;
 

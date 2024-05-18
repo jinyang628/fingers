@@ -1,5 +1,5 @@
 import React from 'react';
-import { TaskEnum } from '@/types/components/ui/tasks';
+import { TaskEnum } from '@/types/logic/tasks';
 import { Checkbox } from '@/components/ui/checkbox';
 import { capitalizeFirstLetter } from '@/lib/utils';
 

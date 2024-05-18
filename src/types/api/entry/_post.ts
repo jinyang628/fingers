@@ -1,4 +1,4 @@
-import { TaskEnumSchema } from '@/types/components/ui/tasks';
+import { TaskEnumSchema } from '@/types/logic/tasks';
 import { z } from 'zod';
 
 export const _postInputSchema = z.object({
@@ -32,7 +32,7 @@ const summaryDictionary = z.object({
 
 export const _postResponseSchema = z.object({
     status: z.number(),
-    summary: summaryDictionary.nullable(),
+    summary: z.array(summaryDictionary).nullable(),
     practice: z.array(practiceDictionary).nullable(),
 });
 

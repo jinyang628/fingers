@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import { validate } from "@/api/user/validate";
 import Tasks from "@/components/ui/tasks";
 import { _postInputSchema } from "@/types/api/entry/_post";
-import { TaskEnum } from "@/types/components/ui/tasks";
+import { TaskEnum } from "@/types/logic/tasks";
 import { useAppContext } from "../AppContext";
 import Image from "next/image";
 import logo from "../../public/logo.png";

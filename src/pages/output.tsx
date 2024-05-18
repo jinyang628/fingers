@@ -4,54 +4,15 @@ import React, { useState } from "react";
 import { useAppContext, SummaryType, PracticeType } from "../AppContext";
 import { Button } from "@/components/ui/button";
 import { FiEdit, FiCheck } from "react-icons/fi";
+import { defaultPracticeData, defaultSummaryData } from "./placeholders/output";
 
 export default function Output() {
   const { data } = useAppContext();
   const { summary, practice } = data;
 
-  const defaultPracticeItem = {
-    language: "javascript",
-    summary_chunk:
-      "Javascript is a programming language that is used in a variety of scripting languages for web development. Notably, it is used in React, Angular, and Vue.",
-    question: "Initialise a basic Hello World React component named App",
-    half_completed_code:
-      "const App = () => // TODO: Add the missing line(s) below.",
-    fully_completed_code: "const App = () => { return <h1>Hello World</h1>; }",
-  };
-  const defaultPracticeItem2 = {
-    language: "python",
-    summary_chunk:
-      "Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.",
-    question: "Write a function that returns the sum of two numbers",
-    half_completed_code:
-      "def sum(a, b): # TODO: Add the missing line(s) below.",
-    fully_completed_code: "def sum(a, b): return a + b",
-  };
-  const defaultPracticeData = [defaultPracticeItem, defaultPracticeItem2];
-  
-  const defaultSummaryItem = { 
-    topic: "Ruby Time Zone",
-    goal: "Learn to correct Ruby functions for time zone error handling",
-    overview: "When working with datetime strings that include UTC offsets, it's crucial to handle time zones correctly to avoid errors and ensure data consistency across different geographical locations.",
-    key_concepts: [
-      {
-        key_concept_title: "UTC Offset",
-        key_concept_content: "The difference in time (hours and minutes) between UTC and the local time zone, indicated in datetime strings as '+hh:mm' or '-hh:mm.'",
-        key_concept_code_example: "offset_match = interval.match(/([+-])(\\d{2}):(\\d{2})/)",
-      },
-      {
-        key_concept_title: "Regex Extraction",
-        key_concept_content: "Regular expressions can be used to extract the UTC offset from datetime strings.",
-        key_concept_code_example: "hours, minutes = offset[1..2].ti_i, offset[4..5].to_i\ntotal_seconds= hours * 3600 + minutes * 60\noffset_seconds = offset[0] == '+' ? total_seconds : -total_seconds\nTime.at(time.to_i + offset_seconds).utc",
-      },
-    ],
-  };
-  const defaultSummaryData = [defaultSummaryItem];
-
   const [editableSummary, setEditableSummary] = useState<SummaryType>(
     summary || defaultSummaryData
   );
-
   const [editablePractice, setEditablePractice] = useState<PracticeType>(
     practice || defaultPracticeData
   );
@@ -74,8 +35,14 @@ export default function Output() {
     value: string,
     index?: number
   ) => {
-    if (type === "summary") {
-      setEditableSummary({ ...editableSummary, [field]: value });
+    if (type === "summary" && editableSummary) {
+      const updatedItems = editableSummary.map((item, idx) => {
+        if (idx == index) {
+          return { ...item, [field]: value };
+        }
+        return item
+      });
+      setEditableSummary(updatedItems);
     } else if (type === "practice" && editablePractice) {
       const updatedItems = editablePractice.map((item, idx) => {
         if (idx === index) {
@@ -107,36 +74,149 @@ export default function Output() {
     }
   };
 
-  const formatSummary = (summary: SummaryType) => {
-    if (!summary) return "No summary available";
-    const summaryElements = Object.entries(summary).map(([key, value]) => (
-      <div key={key} className="">
-        <strong>{key}:</strong> {value}
-      </div>
-    ));
-  
-    return summaryElements;
-  };
-
   return (
-    // ML will need to give the default langauge input here
     <div className="max-w-7xl mx-auto mt-8 p-4">
       <div className="flex flex-col justify-between items-start p-4 border-2 border-slate-600 rounded-xl">
         <h2 className="text-4xl font-semibold mb-2">Summary</h2>
-        {editSummary && editableSummary != null ? (
-          <textarea
-            className="w-full h-60 p-2 border border-gray-300 rounded mb-4"
-            value={ReactDOMServer.renderToString(formatSummary(editableSummary))}
-            onChange={(e) =>
-              handleInputChange("summary", "content", e.target.value)
-            }
-          />
-        ) : (
-          <div className="mb-4">{formatSummary(editableSummary)}</div>
-        )}
-        <Button onClick={toggleEditSummary} className="py-2 px-4 rounded-md">
-          {editSummary ? <FiCheck /> : <FiEdit />}
-        </Button>
+        {
+          editSummary && editableSummary
+          ? editableSummary.map((item, index) => (
+              <div key={index} className="mb-4">
+                Topic
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.topic}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "summary",
+                      "topic",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Goal
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.goal}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "summary",
+                      "goal",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Overview
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={item.overview}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "summary",
+                      "overview",
+                      e.target.value,
+                      index
+                    )
+                  }
+                />
+                Key Concepts
+                {item.key_concepts.map((concept, conceptIndex) => (
+                  <div key={conceptIndex} className="mb-4">
+                    Key Concept Title
+                    <textarea
+                      className="w-full p-2 border border-gray-300 rounded"
+                      value={concept.key_concept_title}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "summary",
+                          `key_concepts.${conceptIndex}.key_concept_title`,
+                          e.target.value,
+                          index
+                        )
+                      }
+                    />
+                    Key Concept Content
+                    <textarea
+                      className="w-full p-2 border border-gray-300 rounded"
+                      value={concept.key_concept_content}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "summary",
+                          `key_concepts.${conceptIndex}.key_concept_content`,
+                          e.target.value,
+                          index
+                        )
+                      }
+                    />
+                    Key Concept Code Example
+                    <textarea
+                      className="w-full p-2 border border-gray-300 rounded"
+                      value={concept.key_concept_code_example}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "summary",
+                          `key_concepts.${conceptIndex}.key_concept_code_example`,
+                          e.target.value,
+                          index
+                        )
+                      }
+                    />
+                  </div>
+                ))}
+                <div className="flex flex-row align-middle gap-4">
+                  <Button
+                    onClick={toggleEditSummary}
+                    className="py-2 px-4 rounded-md"
+                  >
+                    {editSummary ? <FiCheck /> : <FiEdit />}
+                  </Button>
+                  <Button
+                    onClick={handleRecordToDB}
+                    className="py-2 px-4 rounded-md"
+                  >
+                    Record Summary and Practice
+                  </Button>
+                </div>
+              </div>
+            ))
+          : editableSummary &&
+            editableSummary.map((item, index) => (
+              <div key={index} className="mb-4">
+                <div className="flex flex-row justify-between items-center gap-4 my-4">
+                  <h3 className="text-2xl font-semibold underline">
+                    {item.topic}
+                  </h3>
+                  <div className="flex flex-row gap-4">
+                    <Button
+                      onClick={toggleEditSummary}
+                      className="py-2 px-4 rounded-md"
+                    >
+                      {editSummary ? <FiCheck /> : <FiEdit />}
+                    </Button>
+                    <Button
+                      onClick={handleRecordToDB}
+                      className="py-2 px-4 rounded-md"
+                    >
+                      Record Summary and Practice
+                    </Button>
+                  </div>
+                </div>
+                <p className="font-extrabold pt-3">{item.goal}</p>
+                <p className="mb-6">{item.overview}</p>
+                {item.key_concepts.map((concept, conceptIndex) => (
+                  <div key={conceptIndex}>
+                    <h4 className="font-semibold">{concept.key_concept_title}</h4>
+                    <p>{concept.key_concept_content}</p>
+                    <div className="my-4 mb-8 border-2 border-slate-600 rounded-xl">
+                      <pre>{concept.key_concept_code_example}</pre>
+                    </div>
+                  </div>
+                ))}
+                </div>
+            ))
+        }
       </div>
 
       <div className="mt-6 p-4 border-2 border-slate-600 rounded-xl">

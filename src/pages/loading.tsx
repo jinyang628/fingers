@@ -61,7 +61,6 @@ export default function Loading() {
 
       try {
         const response = await _post({ api_key: apiKey, url, tasks });
-        console.log(response);
         if (response.status === 200) {
           setData({ summary: response.summary, practice: response.practice });
           router.push("/output");

@@ -1,9 +1,14 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+type KeyConceptCode = {
+  code: string;
+  language: string;
+}
+
 type KeyConceptType = {
-  key_concept_header: string;
-  key_concept_content: string;
-  key_concept_code_example?: string | null;
+  title: string;
+  explanation: string;
+  code_example?: KeyConceptCode | null;
 }
 
 type SummaryItemType = {

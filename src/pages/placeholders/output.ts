@@ -5,14 +5,16 @@ const defaultSummaryItem = {
     overview: "When working with datetime strings that include UTC offsets, it's crucial to handle time zones correctly to avoid errors and ensure data consistency across different geographical locations.",
     key_concepts: [
       {
-        key_concept_header: "UTC Offset",
-        key_concept_content: "The difference in time (hours and minutes) between UTC and the local time zone, indicated in datetime strings as '+hh:mm' or '-hh:mm.'",
-        key_concept_code_example: "offset_match = interval.match(/([+-])(\\d{2}):(\\d{2})/)",
-        key_concept_code_language: "ruby",
+        title: "UTC Offset",
+        explanation: "The difference in time (hours and minutes) between UTC and the local time zone, indicated in datetime strings as '+hh:mm' or '-hh:mm.'",
+        code_example: {
+          code: "offset_match = interval.match(/([+-])(\\d{2}):(\\d{2})/)",
+          language: "ruby",
+        }
       },
       {
-        key_concept_header: "Regex Extraction",
-        key_concept_content: "Regular expressions can be used to extract the UTC offset from datetime strings.",
+        title: "Regex Extraction",
+        explanation: "Regular expressions can be used to extract the UTC offset from datetime strings.",
       },
     ],
 };

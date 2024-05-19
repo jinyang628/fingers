@@ -126,7 +126,7 @@ export default function Output() {
                     Key Concept Title
                     <textarea
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={concept.key_concept_header}
+                      value={concept.title}
                       onChange={(e) =>
                         handleInputChange(
                           "summary",
@@ -139,7 +139,7 @@ export default function Output() {
                     Key Concept Content
                     <textarea
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={concept.key_concept_content}
+                      value={concept.explanation}
                       onChange={(e) =>
                         handleInputChange(
                           "summary",
@@ -152,7 +152,7 @@ export default function Output() {
                     Key Concept Code Example
                     <textarea
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={concept.key_concept_code_example || ""}
+                      value={concept.code_example || ""}
                       onChange={(e) =>
                         handleInputChange(
                           "summary",
@@ -206,11 +206,11 @@ export default function Output() {
                 <p className="mb-6">{item.overview}</p>
                 {item.key_concepts.map((concept, conceptIndex) => (
                   <div key={conceptIndex}>
-                    <h4 className="font-semibold">{concept.key_concept_header}</h4>
-                    <p>{concept.key_concept_content}</p>
-                    {concept.key_concept_code_example && (
+                    <h4 className="font-semibold">{concept.title}</h4>
+                    <p>{concept.explanation}</p>
+                    {concept.code_example && (
                       <div className="my-4 mb-8 border-2 border-slate-600 rounded-xl">
-                        <pre>{concept.key_concept_code_example}</pre>
+                        <pre>{concept.code_example.code}</pre>
                       </div>
                     )}
                   </div>

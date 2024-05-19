@@ -67,11 +67,11 @@ export default function Loading() {
           router.push("/output");
         } else {
           console.error("Failed to post data", response.status);
-          router.push("/error");
+          // router.push("/error");
         }
       } catch (error) {
         console.error("Error in API call", error);
-        router.push("/error");
+        // router.push("/error");
       }
     }
 

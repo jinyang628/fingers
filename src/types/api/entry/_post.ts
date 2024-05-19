@@ -21,6 +21,7 @@ const keyConceptsDictionary = z.object({
     "key_concept_header": z.string(),
     "key_concept_content": z.string(),
     "key_concept_code_example": z.string().nullable(),
+    "key_concept_code_language": z.string().nullable(),
 });
 
 const summaryDictionary = z.object({

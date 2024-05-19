@@ -8,6 +8,7 @@ const defaultSummaryItem = {
         key_concept_header: "UTC Offset",
         key_concept_content: "The difference in time (hours and minutes) between UTC and the local time zone, indicated in datetime strings as '+hh:mm' or '-hh:mm.'",
         key_concept_code_example: "offset_match = interval.match(/([+-])(\\d{2}):(\\d{2})/)",
+        key_concept_code_language: "ruby",
       },
       {
         key_concept_header: "Regex Extraction",

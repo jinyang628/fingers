@@ -40,8 +40,8 @@ export default function Editor({
 
     function updateHeight() {
       if (!isPractice) {
-        const lines = defaultValue.split('\n').length + 1;
-        setEditorHeight(`${lines * 30}px`);
+        const lines = defaultValue.split('\n').length + 2;
+        setEditorHeight(`${lines * 20}px`);
       } else {
         setEditorHeight("50vh");
       }

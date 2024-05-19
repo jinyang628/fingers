@@ -8,13 +8,13 @@ const defaultSummaryItem = {
         title: "UTC Offset",
         explanation: "The difference in time (hours and minutes) between UTC and the local time zone, indicated in datetime strings as '+hh:mm' or '-hh:mm.'",
         code_example: {
-          code: "offset_match = interval.match(/([+-])(\\d{2}):(\\d{2})/)",
+          code: "offset_match = interval.match(/([+-])(\\d{2}):(\\d{2})/)\nprint('Shawn')\nprint('StillHuman')",
           language: "ruby",
         }
       },
       {
         title: "Regex Extraction",
-        explanation: "Regular expressions can be used to extract the UTC offset from datetime strings.",
+        key_concept_content: "Regular expressions can be used to extract the UTC offset from datetime strings.",
       },
     ],
 };

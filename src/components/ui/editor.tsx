@@ -6,6 +6,7 @@ import logo from "../../../public/favicon.png";
 type EditorProps = {
   defaultLanguage: string;
   defaultValue: string;
+  isPractice: boolean;
   answer?: string;
   showAnswer?: boolean;
 };
@@ -17,25 +18,41 @@ const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
 export default function Editor({
   defaultLanguage,
   defaultValue,
+  isPractice,
   answer,
   showAnswer,
 }: EditorProps) {
   const parentRef = useRef(null);
   const [editorWidth, setEditorWidth] = useState("50vw");
+  const [editorHeight, setEditorHeight] = useState("50vh");
 
   useEffect(() => {
-    function updateSize() {
+    function updateWidth() {
       if (parentRef.current) {
         const width = (parentRef.current as HTMLElement).offsetWidth;
-        setEditorWidth(`${width / 2}px`);
+        if (isPractice) { 
+          setEditorWidth(`${width / 2}px`); // Each editor takes up half the total width in practice mode
+        } else {
+          setEditorWidth(`${width}px`); // The single editor takes up the full width in summary mode
+        }
       }
     }
 
-    window.addEventListener("resize", updateSize);
-    updateSize();
+    function updateHeight() {
+      if (!isPractice) {
+        const lines = defaultValue.split('\n').length + 1;
+        setEditorHeight(`${lines * 30}px`);
+      } else {
+        setEditorHeight("50vh");
+      }
+    }
 
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+    window.addEventListener("resizeWidth", updateWidth);
+    updateWidth();
+    updateHeight();
+
+    return () => window.removeEventListener("resizeWidth", updateWidth);
+  }, [isPractice, defaultValue]);
 
   return (
     <div
@@ -45,7 +62,7 @@ export default function Editor({
       <div className="flex flex-row align-middle">
         {/* https://www.npmjs.com/package/@monaco-editor/react */}
         <MonacoEditor
-          height="50vh"
+          height={editorHeight}
           width={editorWidth}
           language={defaultLanguage}
           defaultValue={defaultValue}
@@ -55,32 +72,43 @@ export default function Editor({
             padding: {
               top: 20,
             },
+            lineNumbers: isPractice ? "on" : "off",
+            readOnly: !isPractice,
+            automaticLayout: true, 
+            scrollBeyondLastLine: false,
+            scrollbar: isPractice ? { vertical: "visible", horizontal: "visible" } : { vertical: "hidden", horizontal: "hidden" },
           }}
         />
-        <div className={`${showAnswer ? "block" : "hidden"}`}>
-          <MonacoEditor
-            height="50vh"
-            width={editorWidth}
-            language={defaultLanguage}
-            defaultValue={answer}
-            theme="vs-dark"
-            options={{
-              readOnly: true,
-              automaticLayout: true,
-              padding: {
-                top: 20,
-              },
-            }}
-          />
-        </div>
-        <div
-          className={`${
-            showAnswer ? "hidden" : "block"
-          } flex justify-center items-center`}
-          style={{ height: "50vh", width: editorWidth }}
-        >
-          <Image src={logo} width={200} height={200} alt="logo" />
-        </div>
+        { isPractice && (
+          <>
+            <div className={`${showAnswer ? "block" : "hidden"}`}>
+              <MonacoEditor
+                height="50vh"
+                width={editorWidth}
+                language={defaultLanguage}
+                defaultValue={answer}
+                theme="vs-dark"
+                options={{
+                  padding: {
+                    top: 20,
+                  },
+                  readOnly: true,
+                  automaticLayout: true,
+                  scrollBeyondLastLine: false,
+                }}
+              />
+            </div>
+            <div
+              className={`${
+                showAnswer ? "hidden" : "block"
+              } flex justify-center items-center`}
+              style={{ height: "50vh", width: editorWidth }}
+            >
+              <Image src={logo} width={200} height={200} alt="logo" />
+            </div>
+          </>
+        )}
+        
       </div>
 
       {/* Language Label */}

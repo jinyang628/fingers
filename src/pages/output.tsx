@@ -26,15 +26,15 @@ export default function Output() {
           editableSummary && editableSummary.map((item, index) => (
               <div key={index} className="mb-4">
                 <div className="flex flex-row justify-between items-center gap-4 my-4">
-                  <h3 className="text-2xl font-semibold underline">
+                  <h3 className="text-3xl font-semibold underline">
                     {item.topic}
                   </h3>
                 </div>
-                <p className="font-extrabold pt-3">{item.goal}</p>
+                <p className="text-2xl font-extrabold pt-3">{item.goal}</p>
                 <p className="mb-6">{item.overview}</p>
                 {item.key_concepts.map((concept, conceptIndex) => (
                   <div key={conceptIndex}>
-                    <h4 className="font-semibold">{concept.title}</h4>
+                    <h4 className="font-semibold italic">{concept.title}</h4>
                     <p>{concept.explanation}</p>
                     {concept.code_example && (
                       <Editor

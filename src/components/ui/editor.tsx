@@ -77,6 +77,10 @@ export default function Editor({
             automaticLayout: true, 
             scrollBeyondLastLine: false,
             scrollbar: isPractice ? { vertical: "visible", horizontal: "visible" } : { vertical: "hidden", horizontal: "hidden" },
+            minimap: { enabled: false },
+            overviewRulerLanes: isPractice ? 3 : 0,
+            overviewRulerBorder: isPractice,
+            wordWrap: "on",
           }}
         />
         { isPractice && (
@@ -95,6 +99,8 @@ export default function Editor({
                   readOnly: true,
                   automaticLayout: true,
                   scrollBeyondLastLine: false,
+                  minimap: { enabled: false },
+                  wordWrap: "on",
                 }}
               />
             </div>

@@ -11,7 +11,7 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
 
     try {
         const response = await axios.post(
-            `${API_URL}/api/entry`, 
+            `${API_URL}/api/entry/web`, 
             {
                 // Must unwrap so FastAPI in stomach receives correct shape
                 api_key: validatedInput.api_key, 

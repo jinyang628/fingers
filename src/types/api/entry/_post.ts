@@ -28,7 +28,7 @@ const keyConceptsDictionary = z.object({
     "code_example": keyConceptCode.optional(),
 });
 
-const summaryDictionary = z.object({
+const resultDictionary = z.object({
     "topic": z.string(),
     "goal": z.string(),
     "overview": z.string(),
@@ -37,8 +37,8 @@ const summaryDictionary = z.object({
 
 export const _postResponseSchema = z.object({
     status: z.number(),
-    summary: z.array(summaryDictionary).nullable(),
-    practice: z.array(practiceDictionary).nullable(),
+    result: z.array(resultDictionary),
+    // practice: z.array(practiceDictionary).nullable(), // Deprecate this
 });
 
 export type _PostResponse = z.infer<typeof _postResponseSchema>;

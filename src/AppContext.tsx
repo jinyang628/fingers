@@ -11,13 +11,13 @@ type KeyConceptType = {
   code_example?: KeyConceptCode | null;
 }
 
-type SummaryItemType = {
+type ResultItemType = {
   topic: string;
   goal: string;
   overview: string;
   key_concepts: KeyConceptType[];
 }
-export type SummaryType = SummaryItemType[] | null;
+export type ResultType = ResultItemType[] | null;
 
 type PracticeItemType = {
   language: string;
@@ -30,12 +30,10 @@ export type PracticeType = PracticeItemType[] | null;
 
 type AppContextType = {
   data: {
-    summary: SummaryType;
-    practice: PracticeType;
+    result: ResultType;
   };
   setData: React.Dispatch<React.SetStateAction<{
-    summary: SummaryType;
-    practice: PracticeType;
+    result: ResultType;
   }>>;
 };
 
@@ -46,9 +44,8 @@ type AppWrapperProps = {
 };
 
 export function AppWrapper({ children }: AppWrapperProps) {
-  const [data, setData] = useState<{ summary: SummaryType; practice: PracticeType }>({
-    summary: null,
-    practice: null,
+  const [data, setData] = useState<{ result: ResultType }>({
+    result: null,
   });
 
   return (

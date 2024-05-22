@@ -24,8 +24,8 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
 
         const parsedResponse = _postResponseSchema.parse({
             status: response.status,
-            summary: response.data.summary,
-            practice: response.data.practice
+            result: response.data.result,
+            // practice: response.data.practice
         });
 
         console.log(parsedResponse)

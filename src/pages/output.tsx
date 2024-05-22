@@ -1,15 +1,15 @@
 import Editor from "@/components/ui/editor";
 import React, { useState } from "react";
-import { useAppContext, SummaryType, PracticeType } from "../AppContext";
+import { useAppContext, ResultType, PracticeType } from "../AppContext";
 import { Button } from "@/components/ui/button";
 import { defaultPracticeData, defaultSummaryData } from "./placeholders/output";
 
 export default function Output() {
   const { data } = useAppContext();
-  const { summary, practice } = data;
+  const { result, practice } = data;
 
-  const [editableSummary, setEditableSummary] = useState<SummaryType>(
-    summary || defaultSummaryData
+  const [editableSummary, setEditableSummary] = useState<ResultType>(
+    result || defaultSummaryData
   );
   const [editablePractice, setEditablePractice] = useState<PracticeType>(
     practice || defaultPracticeData

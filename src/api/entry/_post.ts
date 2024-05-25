@@ -8,6 +8,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export async function _post(input: _PostInput): Promise<_PostResponse> {
 
     const validatedInput = _postInputSchema.parse(input);
+    console.log(validatedInput)
 
     try {
         const response = await axios.post(
@@ -16,7 +17,7 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
                 // Must unwrap so FastAPI in stomach receives correct shape
                 api_key: validatedInput.api_key, 
                 url: validatedInput.url,
-                tasks: validatedInput.tasks
+                content: validatedInput.content
             },
         );
 
@@ -25,7 +26,6 @@ export async function _post(input: _PostInput): Promise<_PostResponse> {
         const parsedResponse = _postResponseSchema.parse({
             status: response.status,
             result: response.data.result,
-            // practice: response.data.practice
         });
 
         console.log(parsedResponse)

@@ -25,9 +25,9 @@ export default function Loading() {
   const apiKey =
     typeof router.query.apiKey === "string" ? router.query.apiKey : "";
   const url = typeof router.query.url === "string" ? router.query.url : "";
-  const tasks =
-    typeof router.query.tasks === "string"
-      ? JSON.parse(router.query.tasks)
+  const content =
+    typeof router.query.content === "string"
+      ? JSON.parse(router.query.content)
       : [];
   const { setData } = useAppContext();
 
@@ -53,17 +53,16 @@ export default function Loading() {
   useEffect(() => {
     async function postData() {
       if (!isMounted.current) return;
-      if (!apiKey || !url || tasks.length === 0) {
+      if (!apiKey || !url || content.length === 0) {
         console.error("Missing data");
         router.push("/error"); // Redirect to an error page or retry
         return;
       }
 
       try {
-        const response = await _post({ api_key: apiKey, url, tasks });
+        const response = await _post({ api_key: apiKey, url: url, content: content });
         console.log(response)
         if (response.status === 200) {
-          // setData({ summary: response.summary, practice: response.practice });
           setData({ result: response.result })
           router.push("/output");
         } else {
@@ -77,7 +76,7 @@ export default function Loading() {
     }
 
     postData();
-  }, [apiKey, url, tasks]);
+  }, [apiKey, url, content]);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">

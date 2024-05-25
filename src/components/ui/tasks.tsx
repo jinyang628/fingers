@@ -1,36 +1,36 @@
 import React from 'react';
-import { TaskEnum } from '@/types/logic/tasks';
+import { ContentEnum } from '@/types/logic/content';
 import { Checkbox } from '@/components/ui/checkbox';
 import { capitalizeFirstLetter } from '@/lib/utils';
 
-type TasksProps = {
-    checkedItems: TaskEnum[];
-    setCheckedItems: (items: TaskEnum[]) => void;
+type ContentProps = {
+    checkedItems: ContentEnum[];
+    setCheckedItems: (items: ContentEnum[]) => void;
 }
-export default function Tasks({ checkedItems, setCheckedItems }: TasksProps) {
-    const handleCheckboxChange = (task: TaskEnum) => {
-        if (checkedItems.includes(task)) {
-            setCheckedItems(checkedItems.filter(item => item !== task));  
+export default function Content({ checkedItems, setCheckedItems }: ContentProps) {
+    const handleCheckboxChange = (content: ContentEnum) => {
+        if (checkedItems.includes(content)) {
+            setCheckedItems(checkedItems.filter(item => item !== content));  
         } else {
-            setCheckedItems([...checkedItems, task]);  
+            setCheckedItems([...checkedItems, content]);  
         }
     };
 
     return (
         <div className="flex flex-col items-center my-8">
-            <h2 className="text-3xl text-center mb-4">Tasks</h2>
+            <h2 className="text-3xl text-center mb-4">Content</h2>
             <div className="flex flex-col items-start">
-                {Object.values(TaskEnum).map(task => (
-                    <div key={task} className="flex items-center space-x-2 mb-2">
+                {Object.values(ContentEnum).map(content => (
+                    <div key={content} className="flex items-center space-x-2 mb-2">
                         <Checkbox
-                            id={task}
-                            checked={checkedItems.includes(task)}
-                            onCheckedChange={() => handleCheckboxChange(task)}
+                            id={content}
+                            checked={checkedItems.includes(content)}
+                            onCheckedChange={() => handleCheckboxChange(content)}
                         >
-                            {capitalizeFirstLetter(task)}
+                            {capitalizeFirstLetter(content)}
                         </Checkbox>
-                        <label htmlFor={task} className="text-sm font-medium leading-none cursor-pointer">
-                            {capitalizeFirstLetter(task)}
+                        <label htmlFor={content} className="text-sm font-medium leading-none cursor-pointer">
+                            {capitalizeFirstLetter(content)}
                         </label>
                     </div>
                 ))}

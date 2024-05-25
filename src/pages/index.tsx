@@ -12,9 +12,9 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { validate } from "@/api/user/validate";
-import Tasks from "@/components/ui/tasks";
+import Content from "@/components/ui/tasks";
 import { _postInputSchema } from "@/types/api/entry/_post";
-import { TaskEnum } from "@/types/logic/tasks";
+import { ContentEnum } from "@/types/logic/content";
 import { useAppContext } from "../AppContext";
 import Image from "next/image";
 import logo from "../../public/logo.png";
@@ -30,7 +30,7 @@ export default function Home() {
     color: "",
   });
   const [urlInputValue, setUrlInputValue] = useState("");
-  const [checkedItems, setCheckedItems] = useState<TaskEnum[]>([]);
+  const [checkedItems, setCheckedItems] = useState<ContentEnum[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleApiKeyInputChange = (e: any) => {
@@ -69,7 +69,7 @@ export default function Home() {
     const parsedInput = _postInputSchema.safeParse({
       api_key: validatedApiKey,
       url: urlInputValue,
-      tasks: checkedItems,
+      content: checkedItems,
     });
     
     if (parsedInput.success) {
@@ -79,7 +79,7 @@ export default function Home() {
         query: {
           apiKey: validatedApiKey,
           url: urlInputValue,
-          tasks: JSON.stringify(checkedItems),
+          content: JSON.stringify(checkedItems),
         },
       });
     } else {
@@ -109,7 +109,7 @@ export default function Home() {
             revision materials📚, technical practices✍️, and curated insights📰.
             Start your journey with our MVP below⬇️
           </div>
-          <Tasks
+          <Content
             checkedItems={checkedItems}
             setCheckedItems={setCheckedItems}
           />

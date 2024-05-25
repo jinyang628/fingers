@@ -1,32 +1,47 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type KeyConceptCode = {
-  code: string;
-  language: string;
+  key_concept_code: string;
+  key_concept_language: string;
 }
 
 type KeyConceptType = {
-  title: string;
-  explanation: string;
-  code_example?: KeyConceptCode | null;
+  key_concept_title: string;
+  key_concept_explanation: string;
+  key_concept_code_example?: KeyConceptCode | null;
 }
+
+type TipType = {
+  tip_title: string;
+  tip_explanation: string;
+}
+
+type McqPracticeType = {
+  mcq_practice_title: string;
+  mcq_practice_question: string;
+  mcq_practice_wrong_options: string[];
+  mcq_practice_correct_option: string;
+};
+
+type CodePracticeType = {
+  code_practice_title: string;
+  code_practice_question: string;
+  code_practice_half_completed_code: string;
+  code_practice_fully_completed_code: string;
+  code_practice_language: string;
+};
 
 type ResultItemType = {
   topic: string;
   goal: string;
   overview: string;
   key_concepts: KeyConceptType[];
+  tips?: TipType[];
+  mcq_practice?: McqPracticeType;
+  code_practice?: CodePracticeType;
 }
 export type ResultType = ResultItemType[] | null;
 
-type PracticeItemType = {
-  language: string;
-  summary_chunk: string;
-  question: string;
-  half_completed_code: string;
-  fully_completed_code: string;
-};
-export type PracticeType = PracticeItemType[] | null;
 
 type AppContextType = {
   data: {

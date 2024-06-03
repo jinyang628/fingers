@@ -2,6 +2,7 @@
 const defaultNotesItem = { 
     topic: "Ruby Time Zone",
     goal: "Learn to correct Ruby functions for time zone error handling",
+    context: "The user asked for help with handling time zones errors in Ruby functions. They are working with datetime strings that include UTC offsets.",
     overview: "When working with datetime strings that include UTC offsets, it's crucial to handle time zones correctly to avoid errors and ensure data consistency across different geographical locations.",
     key_concepts: [
       {
@@ -14,7 +15,7 @@ const defaultNotesItem = {
       },
       {
         key_concept_title: "Regex Extraction",
-        key_concept_explanation: "Regular expressions can be used to extract the UTC offset from datetime strings.",
+        key_concept_explanation: "**Regular expressions** can be used to extract the UTC offset from datetime strings.",
       },
     ],
     tips: [

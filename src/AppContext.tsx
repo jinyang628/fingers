@@ -34,6 +34,7 @@ type CodePracticeType = {
 type ResultItemType = {
   topic: string;
   goal: string;
+  context: string;
   overview: string;
   key_concepts: KeyConceptType[];
   tips?: TipType[];

@@ -2,7 +2,7 @@ import Editor from "@/components/ui/editor";
 import React, { useState } from "react";
 import { useAppContext, ResultType } from "../AppContext";
 import { Button } from "@/components/ui/button";
-import { defaultNotesData } from "./placeholders/output";
+import { defaultNotesData } from "../components/placeholders/output";
 import TextBolder from "@/lib/textBolder";
 import MCQ from "@/components/ui/ mcq";
 

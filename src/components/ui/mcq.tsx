@@ -13,6 +13,7 @@ export default function MCQ({ title, question, options, correctAnswer, onAnswer 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [feedback, setFeedback] = useState<string>("");
+  const [feedbackColor, setFeedbackColor] = useState<string>("");
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
 
   useEffect(() => {
@@ -37,12 +38,14 @@ export default function MCQ({ title, question, options, correctAnswer, onAnswer 
     const isCorrect = selectedOption === correctAnswer;
     onAnswer(isCorrect);
     setFeedback(isCorrect ? "Correct answer!" : "Wrong answer. Try again!");
+    setFeedbackColor(isCorrect ? "text-green-500" : "text-red-500");
     setSubmitted(true);
   };
 
   return (
     <>
-      <h3 className="text-2xl font-semibold mt-5">{title}</h3>
+      <h3 className="text-xl font-semibold mt-5 text-[#3453FB]">Pop Quiz</h3>
+      <h3 className="text-lg font-semibold">{title}</h3>
       <FormControl component="fieldset">
         <FormLabel component="legend">{question}</FormLabel>
         <RadioGroup value={selectedOption} onChange={handleChange}>
@@ -53,7 +56,7 @@ export default function MCQ({ title, question, options, correctAnswer, onAnswer 
         <Button variant="contained" color="primary" onClick={handleSubmit} disabled={!selectedOption}>
           Submit
         </Button>
-        {submitted && <p className="mt-2">{feedback}</p>}
+        {submitted && <p className={`mt-2 ${feedbackColor}`}>{feedback}</p>}
       </FormControl>
     </>
   );

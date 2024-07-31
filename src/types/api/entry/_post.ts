@@ -41,12 +41,12 @@ const codePracticeDictionary = z.object({
 });
 
 const resultDictionary = z.object({
-    "topic": z.string(),
-    "goal": z.string(),
-    "context": z.string(),
-    "overview": z.string(),
-    "key_concepts": z.array(keyConceptsDictionary),
-    "tips": z.array(tipsDictionary),
+    "topic": z.string().optional(),
+    "goal": z.string().optional(),
+    "context": z.string().optional(),
+    "overview": z.string().optional(),
+    "key_concepts": z.array(keyConceptsDictionary).optional(),
+    "tips": z.array(tipsDictionary).optional(),
     "mcq_practice": mcqPracticeDictionary.optional(),   
     "code_practice":codePracticeDictionary.optional(),
 })
